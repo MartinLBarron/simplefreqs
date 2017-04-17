@@ -1,6 +1,7 @@
 #Required packages
 library(dplyr)
 #devtools::install_github("tidyverse/dplyr")
+#' @import dplyr
 #' @title Caclulate frequencies of variable
 #'
 #' @description
