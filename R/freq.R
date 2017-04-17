@@ -1,7 +1,5 @@
 #Required packages
-library(dplyr)
 #devtools::install_github("tidyverse/dplyr")
-#' @import dplyr
 #' @title Caclulate frequencies of variable
 #'
 #' @description
@@ -24,6 +22,9 @@ library(dplyr)
 #' mbfreq(iris, Species)
 #'
 #'
+#' @import dplyr
+#' @export freq
+library(dplyr)
 
 freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, M){
   
