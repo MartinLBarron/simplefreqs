@@ -24,6 +24,8 @@
 #'
 #' @import dplyr
 #' @export freq
+#' 
+
 library(dplyr)
 
 freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, M){
@@ -45,16 +47,16 @@ freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarni
   df<-  df %>%
     count(factor(UQ(x)), sort=sortResults) %>%
     mutate(percentage = n/sum(n),
-           cummulative = cumsum(n),
-           cummulative_percent = cummulative/sum(n)
+           cumulative = cumsum(n),
+           cumulative_percent = cumulative/sum(n)
     )
   
   #Format for printing
   dfprint <-  df %>%
     mutate(n = formatC(n, format="f", digits=0, big.mark=","),
            percentage = paste0(formatC(100 * percentage, digits=1, format="f"), "%"),
-           cummulative = formatC(cummulative, format="f", digits=0, big.mark = ","),
-           cummulative_percent = paste0(formatC(100 * cummulative_percent, digits=1, format="f"), "%")
+           cumulative = formatC(cumulative, format="f", digits=0, big.mark = ","),
+           cumulative_percent = paste0(formatC(100 * cumulative_percent, digits=1, format="f"), "%")
     )
   
   #Print results as requested
