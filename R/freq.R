@@ -16,7 +16,7 @@
 #' @param print_results If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.
 #' @param sortResults If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
 #' @param levelWarning if TRUE (default) gives an error if the variable passed has more than 25 levels. If
-#'
+#' @param use.NA if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)
 #' @return The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
 #' @examples
 #' mbfreq(iris, Species)
@@ -28,24 +28,33 @@
 
 library(dplyr)
 
-freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, M){
+freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, use.NA=T){
   
   #Capture input variable for non-standard evaluation
-  x <- enquo(x)
+  enquo_x <- enquo(x)
   
   #Save df as is for later return
   df_orig=df
   
+  #remove NA if use.NA=F
+  if (use.NA==F){
+    naCount <- df %>%
+      filter(is.na(UQE(enquo_x)))
+    df=filter(df, !is.na(UQE(enquo_x)))
+  }
+  
   #check number of levels and give appropriate errors
   if (levelWarning==T){
-    if (length(levels(factor(df[[quo_name(x)]])))>25){
-      stop(paste(quo_name(x),"contains more than 25 levels (has", length(levels(factor(df[[quo_name(x)]]))), "levels). Set warning=FALSE to proceed."))
+    l <- length(levels(factor(df[[quo_name(enquo_x)]])))
+    print(l)
+    if (l>25){
+      stop(paste(quo_name(enquo_x),"contains more than 25 levels (has", length(levels(factor(df[[quo_name(enquo_x)]]))), "levels). Set warning=FALSE to proceed."))
     }
   }
   
   #Calculate frequencies
   df<-  df %>%
-    count(factor(UQ(x)), sort=sortResults) %>%
+    count(factor(UQE(enquo_x)), sort=sortResults) %>%
     mutate(percentage = n/sum(n),
            cumulative = cumsum(n),
            cumulative_percent = cumulative/sum(n)
@@ -58,11 +67,21 @@ freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarni
            cumulative = formatC(cumulative, format="f", digits=0, big.mark = ","),
            cumulative_percent = paste0(formatC(100 * cumulative_percent, digits=1, format="f"), "%")
     )
+  n <- names(dfprint)
+  n[1] <- quo_name(enquo_x)
+  names(dfprint) <- n
   
   #Print results as requested
   if (printResults==T){
     dfprint <- as.data.frame(dfprint)
-    print(dfprint, justify="left")
+    print(dfprint, justify="left", row.names=F)
+    
+    if (use.NA==F){
+      naCount1 <- nrow(naCount)
+      naPercent<-(naCount1/nrow(df_orig))*100
+      cat("______________________\n")
+    cat(paste0("NA excluded (", prettyNum(naCount1, big.mark=","), ", ", formatC(naPercent, digits=1, format="f"), "%)"))
+    }
   }
   #Save results as requested
   if (saveResults==T){
@@ -72,52 +91,3 @@ freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarni
     return(df_orig)
   }
 }
-
-
-##Testing
-# 
-# # testing -----------------------------------------------------------------
-# 
-# library(forcats)
-# dfgss <-gss_cat
-# 
-# 
-# # Simple ------------------------------------------------------------------
-# 
-# df <-freq(dfgss, year)
-# 
-# 
-# 
-# # save results ------------------------------------------------------------
-# df <- freq(dfgss, year, saveResults = T)
-# 
-# # sort --------------------------------------------------------------------
-# df <- freq(dfgss, year, sortResults = F)
-# 
-# 
-# # print Results -----------------------------------------------------------
-# 
-# df <- freq(dfgss, year, printResults = F)
-# 
-# 
-# # Level warnings ----------------------------------------------------------
-# df <- freq(dfgss, denom)
-# df <- freq(dfgss, denom, levelWarning = F)
-# 
-# 
-# # Missings ----------------------------------------------------------------
-# 
-# dfgss$year[c(seq(1,1000, by=4))] <- NA
-# 
-# x <-freq(dfgss, year, saveResults=T, sortResults = T)
-# 
-# 
-# # As part of a dplyr chain ------------------------------------------------
-# 
-# 
-# #As part of chain
-# df <- dfgss %>%
-#   filter(year>2006) %>%
-#   freq(year)
-
-
