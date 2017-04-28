@@ -1,5 +1,7 @@
 #Required packages
 #devtools::install_github("tidyverse/dplyr")
+library(dplyr)
+
 #' @title Caclulate frequencies of variable
 #'
 #' @description
@@ -19,14 +21,13 @@
 #' @param use.NA if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)
 #' @return The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
 #' @examples
-#' mbfreq(iris, Species)
+#' freq(iris, Species)
 #'
 #'
 #' @import dplyr
 #' @export freq
 #' 
 
-library(dplyr)
 
 freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, use.NA=T){
   
