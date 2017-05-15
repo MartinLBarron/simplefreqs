@@ -15,10 +15,10 @@ library(dplyr)
 #' @param df A dataframe
 #' @param x a variable in associated dataframe.
 #' @param saveResults If FALSE (default) returns original dataframe. If TRUE, returns frequency results as a dataframe. This allows user to place this function inside a dplyr chain
-#' @param print_results If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.
+#' @param printResults If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.
 #' @param sortResults If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
 #' @param levelWarning if TRUE (default) gives an error if the variable passed has more than 25 levels. If
-#' @param use.NA if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)
+#' @param na.rm if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)
 #' @return The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
 #' @examples
 #' freq(iris, Species)
@@ -29,7 +29,7 @@ library(dplyr)
 #' 
 
 
-freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, use.NA=T){
+freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarning=T, na.rm=F){
   
   #Capture input variable for non-standard evaluation
   enquo_x <- enquo(x)
@@ -38,7 +38,7 @@ freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarni
   df_orig=df
   
   #remove NA if use.NA=F
-  if (use.NA==F){
+  if (na.rm==F){
     naCount <- df %>%
       filter(is.na(UQE(enquo_x)))
     df=filter(df, !is.na(UQE(enquo_x)))
@@ -77,7 +77,7 @@ freq <- function(df, x, saveResults=F, printResults=T, sortResults=T, levelWarni
     dfprint <- as.data.frame(dfprint)
     print(dfprint, justify="left", row.names=F)
     
-    if (use.NA==F){
+    if (na.rm==T){
       naCount1 <- nrow(naCount)
       naPercent<-(naCount1/nrow(df_orig))*100
       cat("______________________\n")

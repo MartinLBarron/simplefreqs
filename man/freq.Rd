@@ -5,7 +5,7 @@
 \title{Caclulate frequencies of variable}
 \usage{
 freq(df, x, saveResults = F, printResults = T, sortResults = T,
-  levelWarning = T, use.NA = T)
+  levelWarning = T, na.rm = F)
 }
 \arguments{
 \item{df}{A dataframe}
@@ -14,13 +14,13 @@ freq(df, x, saveResults = F, printResults = T, sortResults = T,
 
 \item{saveResults}{If FALSE (default) returns original dataframe. If TRUE, returns frequency results as a dataframe. This allows user to place this function inside a dplyr chain}
 
+\item{printResults}{If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.}
+
 \item{sortResults}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
 \item{levelWarning}{if TRUE (default) gives an error if the variable passed has more than 25 levels. If}
 
-\item{use.NA}{if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)}
-
-\item{print_results}{If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.}
+\item{na.rm}{if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)}
 }
 \value{
 The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
