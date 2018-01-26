@@ -18,7 +18,7 @@ freq(df, x, saveResults = F, printResults = T, sortResults = T,
 
 \item{sortResults}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{levelWarning}{if TRUE (default) gives an error if the variable passed has more than 25 levels. If}
+\item{levelWarning}{if TRUE (default) gives an error if the variable passed has more than 40 levels. If}
 
 \item{na.rm}{if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)}
 }

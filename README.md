@@ -1,4 +1,1 @@
-# freqR
-R package to produce frequency Tables as part of dplyr workflow
-
-This project is currently under development.
+Some functions I'm working on for creating basic summary statistics in R and displaying them in a nice way.

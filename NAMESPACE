@@ -2,5 +2,9 @@
 
 export(binnedHist)
 export(freq)
+export(listFreq)
+export(multiplot)
+export(summaryMeans)
 import(dplyr)
 import(ggplot2)
+import(grid)
