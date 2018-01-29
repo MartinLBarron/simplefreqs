@@ -8,43 +8,42 @@
 # dfgss <-gss_cat
 # 
 # 
+# 
 # # Simple ------------------------------------------------------------------
-# df <-freq(dfgss, year)
-# 
-# 
-# 
+# freq(iris,Species)
+# freq(dfgss, year)
 # # save results ------------------------------------------------------------
-# df <- freq(dfgss, year, saveResults = T)
+# freq(dfgss, year, saveResults = T)
+# freq(dfgss, year, saveResults = F)
+# 
 # 
 # # sort --------------------------------------------------------------------
 # df <- freq(dfgss, year, sortResults = F)
-# 
+# df <- freq(dfgss, year, sortResults = T)
 # 
 # # print Results -----------------------------------------------------------
-# 
 # df <- freq(dfgss, year, printResults = F)
+# df <- freq(dfgss, year, printResults = T)
 # 
 # 
 # # Level warnings ----------------------------------------------------------
-# df <- freq(dfgss, denom)
-# df <- freq(dfgss, denom, levelWarning = F)
-# 
+# df <- freq(dfgss, denom, levelError = T)
+# df <- freq(dfgss, denom, levelError = F, sortResults = T, saveResults = T)
 # 
 # # Missings ----------------------------------------------------------------
 # 
 # dfgss$year[c(seq(1,1000, by=4))] <- NA
 # 
 # x <-freq(dfgss, year)
-# x <-freq(dfgss, denom)
+# x <-freq(dfgss, year, na.rm = T)
 # 
-# x <-freq(dfgss, year, use.NA = F, levelWarning=F)
-# 
-# 
-# # # As part of a dplyr chain ------------------------------------------------
-# #
-# #
+# # As part of a dplyr chain ------------------------------------------------
 # #As part of chain
 # df <- dfgss %>%
 #   filter(year>2006) %>%
 #   freq(year)
+# 
+# 
+# 
+# 
 # 

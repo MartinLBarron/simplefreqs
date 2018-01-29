@@ -4,7 +4,6 @@
 
 
 # Determine number of decimals --------------------------------------------
-
 decimalplaces <- function(x) {
   if (!is.na(x)){
     if ((x %% 1) != 0) {
@@ -44,19 +43,10 @@ formatGuesser <- function(x){
 
 #given a vector and a string indicating , r
 formatColumn <- function(x, f=NA){
-  print("formatColumn")
-
-  if(!(is.character(x) | is.factor(x))){
-    print("guess")
-    print(x)
-    if (is.na(f)){
-      f <-formatGuesser(x)
-    }
-    if (f=="g"){
-      f <-formatGuesser(x)
-    }
     #percent0
-    if (f=="p0") {
+    if (f=="c"){
+      x <- as.character(x)
+    } else if (f=="p0") {
       x <- paste0(formatC(100 * x, digits=0, format="f"), "%")
 
       #percent1
@@ -70,7 +60,6 @@ formatColumn <- function(x, f=NA){
       #percent3
     } else if (f=="p3"){
       x <- paste0(formatC(100 * x, digits=3, format="f"), "%")
-
 
       #numeric0
     } else if (f=="n0"){
@@ -86,10 +75,7 @@ formatColumn <- function(x, f=NA){
     } else if (f=="asis"){
       x <- x
     }
-  }
-  if (is.factor(x)){
-    x <- as.character(x)
-  }
+
   return(x)
 }
 # x <- as.data.frame(apply(df,2, formatColumn))
@@ -119,8 +105,11 @@ DetermineColumnWidths <- function(df){
 printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="=", lowerSymbol="-", center=F, tableSymbol="_", tablePadding=5, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T){
 
   #Convert Dataframe to all character
-  df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
+  #df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
   #format as specified
+  for (i in 1:length(df)){
+    df[i] <- formatColumn(df[[i]], f=formats[i])
+  }
 
   #Get Window Width
   windowWidth <- getOption("width")
@@ -212,15 +201,13 @@ print.freqR_summaryMeans <-function(df){
 
 print.freqR_freq <-function(df){
   breaks <- NA
-  printIt(df, breaks, formats=c("g", "n0","p2", "n2", "p2"), printTotalRow = T)
+  printIt(df, breaks, formats=c("c", "n0","p1", "n0", "p1"), printTotalRow = T)
 }
 
 print.freqR_listFreq <-function(df){
   breaks <- NA
-  print("printing listfreq")
-  printIt(df, breaks, formats=c("g", "n0","p2", "n0", "p2"), printTotalRow = T)
+  printIt(df, breaks, formats=c("g", "n0","p1", "n0", "p1"), printTotalRow = T)
 }
-
 
 # breaks <- NA
 # printIt(df, breaks)

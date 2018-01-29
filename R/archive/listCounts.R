@@ -1,9 +1,8 @@
-#' 
 #' #Required packages
 #' #devtools::install_github("tidyverse/dplyr")
 #' library(dplyr)
 #' 
-#' #' @title Caclulate cross frequencies of variables
+#' #' @title means and other descriptive statistics for variables
 #' #'
 #' #' @description
 #' #' \code{freq} prints a frequency table of the cross of each variable
@@ -24,12 +23,11 @@
 #' 
 #' #'
 #' #' @return
-#' #' @export
 #' #'
 #' #' @examples
 #' #' 
 #' 
-#' listCount <- function(df,..., saveResults=F, printResults=T, sortResults=T, levelWarning=T, na.rm=F){
+#' means <- function(df,..., saveResults=F, printResults=T, sortResults=T, levelWarning=T, na.rm=F){
 #'   
 #'   # df <- dfgss
 #'   # my_var <- quo(year)
@@ -111,81 +109,9 @@
 #' 
 #' 
 #' 
-#'   
 #' 
-#' mbsummarize <-function(var){
-#'   
-#'   var_nobs <- var  %>%
-#'     summarize(FYE_2009=n(),
-#'               FYE_2011=n(),
-#'               FYE_2014=n())%>%
-#'     mutate (type="nobs",
-#'             order=1)
-#'   var_n  <- var  %>%
-#'     summarize(FYE_2009=sum(!is.na(FYE_2009)),
-#'               FYE_2011=sum(!is.na(FYE_2011)),
-#'               FYE_2014=sum(!is.na(FYE_2014)))%>%
-#'     mutate (type="n",
-#'             order=2)
-#'   
-#'   var_sum <- var  %>%
-#'     summarize(FYE_2009=sum(FYE_2009, na.rm=T),
-#'               FYE_2011=sum(FYE_2011, na.rm=T),
-#'               FYE_2014=sum(FYE_2014, na.rm=T)) %>%
-#'     mutate (type="sum",
-#'             order=3)
-#'   
-#'   var_mean<- var  %>%
-#'     summarize(FYE_2009=mean(FYE_2009, na.rm=T),
-#'               FYE_2011=mean(FYE_2011, na.rm=T),
-#'               FYE_2014=mean(FYE_2014, na.rm=T)) %>%
-#'     mutate (type="mean",
-#'             order=4)
-#'   
-#'   var_sd <- var  %>%
-#'     summarize(FYE_2009=sd(FYE_2009, na.rm=T),
-#'               FYE_2011=sd(FYE_2011, na.rm=T),
-#'               FYE_2014=sd(FYE_2014, na.rm=T)) %>%
-#'     mutate (type="sd",
-#'             order=5)
-#'   
-#'   
-#'   var_min <- var  %>%
-#'     summarize(FYE_2009=min(FYE_2009, na.rm=T),
-#'               FYE_2011=min(FYE_2011, na.rm=T),
-#'               FYE_2014=min(FYE_2014, na.rm=T)) %>%
-#'     mutate (type="min",
-#'             order=6)
-#'   
-#'   var_median <- var  %>%
-#'     summarize(FYE_2009=median(FYE_2009, na.rm=T),
-#'               FYE_2011=median(FYE_2011, na.rm=T),
-#'               FYE_2014=median(FYE_2014, na.rm=T)) %>%
-#'     mutate (type="median",
-#'             order=7)
-#'   
-#'   
-#'   var_max <- var  %>%
-#'     summarize(FYE_2009=max(FYE_2009, na.rm=T),
-#'               FYE_2011=max(FYE_2011, na.rm=T),
-#'               FYE_2014=max(FYE_2014, na.rm=T)) %>%
-#'     mutate (type="max",
-#'             order=8)
-#'   
-#'   var_range <- var  %>%
-#'     summarize(FYE_2009=range(FYE_2009, na.rm=T)[2]-range(FYE_2009, na.rm=T)[1],
-#'               FYE_2011=range(FYE_2011, na.rm=T)[2]-range(FYE_2011, na.rm=T)[1],
-#'               FYE_2014=range(FYE_2014, na.rm=T)[2]-range(FYE_2014, na.rm=T)[1]) %>%
-#'     mutate (type="range",
-#'             order=9)
-#'   
-#'   
-#'   var <- bind_rows(var_sum, var_mean, var_sd, var_min, var_max, var_median, var_range, var_nobs, var_n) %>%
-#'     arrange(order) %>%
-#'     select(-order)
-#'   return(var)
-#' }
 #' 
+#'   
 #' 
 #' 
 #' 

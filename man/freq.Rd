@@ -4,23 +4,23 @@
 \alias{freq}
 \title{Caclulate frequencies of variable}
 \usage{
-freq(df, x, saveResults = F, printResults = T, sortResults = T,
-  levelWarning = T, na.rm = F)
+freq(df, x, plotResults = T, saveResults = F, printResults = T,
+  sortResults = F, levelError = T, na.rm = F)
 }
 \arguments{
 \item{df}{A dataframe}
 
 \item{x}{a variable in associated dataframe.}
 
-\item{saveResults}{If FALSE (default) returns original dataframe. If TRUE, returns frequency results as a dataframe. This allows user to place this function inside a dplyr chain}
+\item{saveResults}{If FALSE (default) returns nothing. If TRUE (default), returns frequency results as a dataframe. This allows user to place this function inside a dplyr chain}
 
 \item{printResults}{If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.}
 
 \item{sortResults}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{levelWarning}{if TRUE (default) gives an error if the variable passed has more than 40 levels. If}
-
 \item{na.rm}{if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)}
+
+\item{levelWarning}{if TRUE (default) gives an error if the variable passed has more than 25 levels. If}
 }
 \value{
 The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
@@ -31,7 +31,7 @@ The original dataframe or table containing frequencies, Produces side-effect of 
 \details{
 This function prints a frequency table for variables passed to it.  In
 order to fit within the tidyverse, it takes as its first argument a dataframe
-and returns that (unaltered) dataframe, unless the user explicilty requests other output
+and returns the frequency table as a dataframe.
 }
 \examples{
 freq(iris, Species)
