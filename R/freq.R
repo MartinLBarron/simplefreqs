@@ -108,3 +108,37 @@ freq <- function(df, x, plotResults=T, saveResults=F, printResults=T, sortResult
 # gg + theme_minimal() + ggtitle ("Species Frequency") + ylab("Count")
 
 
+# my_summarise <- function(df, ...) {
+#   group_var <- quos(...)
+#   
+#   df %>%
+#     group_by(!!!group_var) %>%
+#     summarise(a = mean(a))
+# }
+# 
+# library(dplyr)
+# library(rlang)
+# test <- function(df, ..., safeas=T){
+#   
+#   ## Deal with ...
+#   #Capture all variables passed in
+#   vars <- quos(...)
+#   #if no vars passed in, get all variables in dataframe
+#   #this requires special "sym" command from rlang
+#   if (length(vars)==0){
+#     vars <- list()
+#     nme <- names(df)
+#     for (i in 1:length(nme)){
+#       x <- nme[[i]]
+#       gp <- quo(!! sym(x))
+#       vars[[i]]<-unlist(gp)
+#     }
+#   }
+#   
+#   for (var in vars){
+#     print(var)
+#     dfq<-  df %>%
+#       summarize(x=mean(UQE(var)))
+#     print(dfq)
+#   }
+# }
