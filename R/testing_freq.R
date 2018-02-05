@@ -6,6 +6,10 @@
 # library(forcats)
 # library(dplyr)
 # dfgss <-gss_cat
+# dfgss <- select(dfgss, -tvhours, -age, -denom)
+# dfgss <- freq2(dfgss, saveResults = T)
+# 
+# print(dfgss)
 # 
 # 
 # 

@@ -102,7 +102,7 @@ DetermineColumnWidths <- function(df){
 # x <- as.data.frame(apply(df,2, formatColumn), stringsAsFactors = F)
 
 # Generic function to lay out table as desired ---------------------------------
-printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="=", lowerSymbol="-", center=F, tableSymbol="_", tablePadding=5, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T){
+printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="=", lowerSymbol="-", center=F, tableSymbol="_", tablePadding=5, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T,printTitleRow=F){
 
   #Convert Dataframe to all character
   #df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
@@ -129,13 +129,17 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
   #get column names
   nme <-names(df)
 
-
+  # Print Title ------------------------------------------------------------
+  if (printTitleRow==T){
+    cat("\n\nFREQUENCY COUNT: ", attr(df, "title"), "\n", sep="")
+  }
+  
   # Print Table top ---------------------------------------------------------
   #print outer
   if (printTableSymbol==T){
     cat(rep(tableSymbol, maxLength+(tablePadding*2)),"\n",sep="")
   }
-
+  
   # Print Header ------------------------------------------------------------
   #padding for header labels
   cat(rep(spaceSymbol, tablePadding), sep="")
@@ -196,17 +200,19 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
 
 print.freqR_summaryMeans <-function(df){
   breaks <- c(4,7)
-  printIt(df, breaks, printTotalRow = F)
+  printIt(df, breaks, printTotalRow = F, printTitleRow=F)
 }
 
 print.freqR_freq <-function(df){
   breaks <- NA
-  printIt(df, breaks, formats=c("c", "n0","p1", "n0", "p1"), printTotalRow = T)
+  printIt(df, breaks, formats=c("c", "n0","p1", "n0", "p1"), printTotalRow = T,printTitleRow=T)
 }
 
 print.freqR_listFreq <-function(df){
   breaks <- NA
-  printIt(df, breaks, formats=c("g", "n0","p1", "n0", "p1"), printTotalRow = T)
+  printIt(df, breaks, formats=c("g", "n0","p1", "n0", "p1"), printTotalRow = T,printTitleRow=F)
+  
+
 }
 
 # breaks <- NA
