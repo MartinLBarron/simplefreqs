@@ -1,3 +1,5 @@
+#' freq
+#' 
 #' @title Caclulate frequencies of variable
 #'
 #' @description
@@ -14,12 +16,13 @@
 #' @param plotResults if TRUE (default) prints bar chart of results.  If FALSE, no chart.
 #' @param printResults If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.
 #' @param sortResults If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
-#' @param levelError if TRUE (default) gives an error if the variable passed has more than 25 levels. If
+#' @param levelError if TRUE (default) gives an error if the variable passed has more than 100 levels. If
 #' @param na.rm if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)
-#' @return The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
+#' @return Null or dataframe containing frequencies. Prints frequency tabl
 #' @examples
+#' \dontrun{
 #' freq(iris, Species)
-#'
+#'}
 #' @import dplyr
 #' @import ggplot2
 #' @import rlang
@@ -43,14 +46,14 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
     nme <- names(df)
     for (i in 1:length(nme)){
       x <- nme[[i]]
-      gp <- quo(!! sym(x))
+      gp <- quo(!! rlang::sym(x))
       vars[[i]]<-unlist(gp)
     }
   }
   
   for (var in vars){
     df <- df_orig
-    levelErrorNumber <- 25
+    levelErrorNumber <- 100
     #Capture input variable for non-standard evaluation
     enquo_x <- var
     
@@ -87,8 +90,7 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
     
     #Set results class
     class(df) <- c("freqR_freq",class(df))
-    
-    test <<- df
+
     #Print results as requested
     if (printResults==T){
       attr(df, "title") <- quo_name(enquo_x)

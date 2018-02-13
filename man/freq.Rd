@@ -18,24 +18,28 @@ freq(df, ..., plotResults = T, saveResults = F, printResults = T,
 
 \item{sortResults}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{levelError}{if TRUE (default) gives an error if the variable passed has more than 25 levels. If}
+\item{levelError}{if TRUE (default) gives an error if the variable passed has more than 100 levels. If}
 
 \item{na.rm}{if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)}
 
 \item{x}{a variable in associated dataframe.}
 }
 \value{
-The original dataframe or table containing frequencies, Produces side-effect of printed frequencie table
+Null or dataframe containing frequencies. Prints frequency tabl
 }
 \description{
 \code{freq} prints a frequency table for each variable passed to it.
 }
 \details{
+freq
+
+
 This function prints a frequency table for variables passed to it.  In
 order to fit within the tidyverse, it takes as its first argument a dataframe
 and returns the frequency table as a dataframe.
 }
 \examples{
+\dontrun{
 freq(iris, Species)
-
+}
 }

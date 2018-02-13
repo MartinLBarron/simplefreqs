@@ -107,6 +107,9 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
   #Convert Dataframe to all character
   #df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
   #format as specified
+  if (is.na(formats)){
+    formats=rep("c",length(df))
+  }
   for (i in 1:length(df)){
     df[i] <- formatColumn(df[[i]], f=formats[i])
   }
@@ -210,19 +213,17 @@ print.freqR_freq <-function(df){
 
 print.freqR_listFreq <-function(df){
   breaks <- NA
-  printIt(df, breaks, formats=c("g", "n0","p1", "n0", "p1"), printTotalRow = T,printTitleRow=F)
-  
+  if(min(df$percentage)>0.001){
+    per="p1"
+  }else if(min(df$percentage)>0.0001){
+    per="p2"
+  }else {
+    per="p3"
+  } 
+
+  numvars <- length(df)-2
+  fmts<- c(rep("c", numvars),"n0", per)
+  printIt(df, breaks, formats=fmts, printTotalRow = T,printTitleRow=F)
 
 }
-
-# breaks <- NA
-# printIt(df, breaks)
-
-
 #
-# max(sapply(df$wt,decimalplaces))
-#
-
-# x<-df[[2]]
-# formatter(df[[3]])
-

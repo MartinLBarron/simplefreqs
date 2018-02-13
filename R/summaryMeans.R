@@ -11,6 +11,7 @@
 #' @return dataframe
 #' #'
 #' @examples
+#' \dontrun{}
 #'
 #' @import dplyr
 #' @export summaryMeans

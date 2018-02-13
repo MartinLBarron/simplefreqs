@@ -31,5 +31,6 @@ dataframe
 Produces summary statistics table
 }
 \examples{
+\dontrun{}
 
 }
