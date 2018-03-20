@@ -102,7 +102,7 @@ DetermineColumnWidths <- function(df){
 # x <- as.data.frame(apply(df,2, formatColumn), stringsAsFactors = F)
 
 # Generic function to lay out table as desired ---------------------------------
-printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="=", lowerSymbol="-", center=F, tableSymbol="_", tablePadding=5, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T,printTitleRow=F){
+printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="-", lowerSymbol="=", center=F, tableSymbol="=", tablePadding=0, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T,printTitleRow=F){
 
   #Convert Dataframe to all character
   #df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
@@ -136,13 +136,14 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
 
   # Print Title ------------------------------------------------------------
   if (printTitleRow==T){
-    cat("\n\nFREQUENCY COUNT: ", attr(df, "title"), "\n", sep="")
+    cat("\n\nFREQUENCY: ", attr(df, "title"), "\n", sep="")
   }
   
   # Print Table top ---------------------------------------------------------
   #print outer
   if (printTableSymbol==T){
-    cat(rep(tableSymbol, maxLength+(tablePadding*2)),"\n",sep="")
+    #cat(rep(tableSymbol, maxLength+(tablePadding*2)),"\n",sep="")
+    cat(rep(spaceSymbol, tablePadding),rep(tableSymbol, maxLength+2),"\n",sep="")
   }
   
   # Print Header ------------------------------------------------------------
@@ -165,7 +166,7 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
   }
   cat("\n")
   if (printHeaderRow==T){
-    cat(rep(spaceSymbol, tablePadding-1),rep(upperSymbol, maxLength+2),"\n",sep="")
+    cat(rep(spaceSymbol, tablePadding),rep(upperSymbol, maxLength+2),"\n",sep="")
   }
 
   #Now print cell values
@@ -173,7 +174,7 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
     #print break rows when requested
     #determine if breakrow
     if (row %in% breaks){
-      cat(rep(spaceSymbol, tablePadding-1),rep(lowerSymbol, maxLength+2),"\n",sep="")
+      cat(rep(spaceSymbol, tablePadding),rep(lowerSymbol, maxLength+2),"\n",sep="")
     }
 
     cat(rep(spaceSymbol, tablePadding), sep="")
@@ -194,11 +195,12 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
   #print outer
 
   if (printTotalRow==T){
-    cat(rep(spaceSymbol, tablePadding-1),rep(upperSymbol, maxLength+2),"\n",sep="")
+    cat(rep(spaceSymbol, tablePadding),rep(lowerSymbol, maxLength+2),"\n",sep="")
   }
   # Table Bottom ------------------------------------------------------------
   if (printTableSymbol==T){
-    cat(rep(tableSymbol, maxLength+(tablePadding*2)),"\n",sep="")
+    #cat(rep(tableSymbol, maxLength+(tablePadding*2)),"\n",sep="")
+    #cat(rep(tableSymbol, maxLength),"\n",sep="")
   }
 }
 
