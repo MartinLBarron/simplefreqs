@@ -7,24 +7,24 @@
 # library(dplyr)
 # dfgss <-gss_cat
 # 
-# 
 # # Simple, single ------------------------------------------------------------------
 # freq(iris,Species)
 # freq(dfgss, year)
-# 
-# 
-# # Multiple variables ------------------------------------------------------
+# freq(dfgss$year)
+# freq(dfgss[,"year"])
+#x <-freqMd(iris,Species)
+
+# # # Multiple variables ------------------------------------------------------
 # freq(dfgss, year, marital, partyid)
 # 
-# 
-# # whole dataset -----------------------------------------------------------
+# # # whole dataset -----------------------------------------------------------
 # dfgss1 <- select(dfgss, year, marital, race, partyid)
 # freq(dfgss1)
 # 
-# # save results ------------------------------------------------------------
+# # # save results ------------------------------------------------------------
 # test2 <- freq(dfgss, year, saveResults = T)
 # test3 <- freq(dfgss, year, saveResults = F)
-# 
+
 # 
 # # sort --------------------------------------------------------------------
 # freq(dfgss, year, sortResults = F)
@@ -49,7 +49,7 @@
 # 
 # x <-freq(dfgss, year)
 # x <-freq(dfgss, year, na.rm = T)
-# 
+
 # # As part of a dplyr chain ------------------------------------------------
 # #As part of chain
 # df <- dfgss %>%

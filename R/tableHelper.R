@@ -107,8 +107,10 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
   #Convert Dataframe to all character
   #df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
   #format as specified
-  if (is.na(formats)){
+  if(length(formats)==1){
+    if (is.na(formats)){
     formats=rep("c",length(df))
+    }
   }
   for (i in 1:length(df)){
     df[i] <- formatColumn(df[[i]], f=formats[i])
@@ -208,7 +210,7 @@ print.freqR_summaryMeans <-function(df){
 
 print.freqR_freq <-function(df){
   breaks <- NA
-  printIt(df, breaks, formats=c("c", "n0","p1", "n0", "p1"), printTotalRow = T,printTitleRow=T)
+  printIt(df, breaks, formats=c("c", "n0","n1", "n0", "n1"), printTotalRow = T,printTitleRow=T)
 }
 
 print.freqR_listFreq <-function(df){

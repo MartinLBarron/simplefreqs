@@ -33,7 +33,21 @@
 
 freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResults=T, levelError=T, na.rm=F){
   #library(rlang)
-
+  
+  
+  #check if dataframe. If not, translate to dataframe
+  if (!is.data.frame(df)){
+    dfname <- deparse(substitute(df))
+    if (grepl("$", dfname, fixed=T)){
+      dfname <- strsplit(dfname, "$", fixed=T)[[1]][[2]]
+      df <- data.frame(x=df)
+      names(df)<-c(dfname)
+    } else{
+      dfname <- strsplit(dfname, "\"", fixed=T)[[1]][[2]]
+      df <- data.frame(x=df)
+      names(df)<-c(dfname)
+    }
+  }
   #Save df as is for later return
   df_orig=df
   
@@ -41,7 +55,7 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
   #Capture all variables passed in
   vars <- quos(...)
 
-  #if no vars passed in, get all variables in dataframe
+   #if no vars passed in, get all variables in dataframe
   #this requires special "sym" command from rlang
   if (length(vars)==0){
     vars <- list()
@@ -62,8 +76,8 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
     #remove NA if na.rm=T
     if (na.rm==T){
       naCount <- df %>%
-        filter(is.na(UQE(enquo_x)))
-      df=filter(df, !is.na(UQE(enquo_x)))
+        filter(is.na(!! get_expr(enquo_x)))
+      df=filter(df, !is.na(!! get_expr(enquo_x)))
     }
     
     #check number of levels and give appropriate errors
@@ -76,19 +90,23 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
     
     #Calculate frequencies
     df<-  df %>%
-      count(factor(UQE(enquo_x)), sort=sortResults) %>%
-      mutate(percentage = n/sum(n),
+      count(factor(!! get_expr(enquo_x)), sort=sortResults) %>%
+      mutate(percentage = (n/sum(n))*100,
              cumulative = cumsum(n),
-             cumulative_percent = cumulative/sum(n)
+             cumulative_percent = (cumulative/sum(n))*100
       )
+    
+
     if (sortResults==T){
       df[1] <- factor(df[[1]], levels = df[[1]][order(-df$n)])
     }
     
     #Format name for printing
     n <- names(df)
-    n[1] <- quo_name(enquo_x)
-    names(df) <- n
+    names(df) <- c(quo_name(enquo_x), "Freq", "%", "Cum. Freq", "Cum. %")
+    
+    # n[1] <- quo_name(enquo_x)
+    # names(df) <- n
     
     #Set results class
     class(df) <- c("freqR_freq",class(df))
@@ -107,9 +125,9 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
     
     #Plot results
     if (plotResults==T){
-      gg <- ggplot(data=df, aes_string(quo_name(enquo_x), "n"))
+      gg <- ggplot(data=df, aes_string(quo_name(enquo_x), "Freq"))
       gg <- gg + geom_bar(stat="identity")
-      gg <- gg + theme_minimal() + ggtitle (paste(quo_name(enquo_x),"Frequency")) + ylab("Count")
+      gg <- gg + theme_minimal() + ggtitle (paste("Frequency:", quo_name(enquo_x))) + ylab("Count")
       gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
       print (gg)
     }
