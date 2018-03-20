@@ -1,14 +1,14 @@
-# #devtools::install_github("tidyverse/dplyr")
-# #Testing
-# 
-# # testing -----------------------------------------------------------------
-# 
-# library(forcats)
-# library(dplyr)
-# dfgss <-gss_cat
-# 
-# # Simple, single ------------------------------------------------------------------
-# freq(iris,Species)
+#devtools::install_github("tidyverse/dplyr")
+#Testing
+
+# testing -----------------------------------------------------------------
+
+library(forcats)
+library(dplyr)
+dfgss <-gss_cat
+
+# Simple, single ------------------------------------------------------------------
+freq(iris,Species)
 # freq(dfgss, year)
 # freq(dfgss$year)
 # freq(dfgss[,"year"])
