@@ -18,5 +18,3 @@
 freqMd <- function(...){
   freq(..., plotResults = F, printResults = F, saveResults = T)
 }
-
-x <- freqMd(iris, Species)
