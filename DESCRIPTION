@@ -1,7 +1,7 @@
 Package: freqR
 Type: Package
 Title: Basic Data Exploration in a Tidyverse framework 
-Version: 0.1.7
+Version: 0.1.8
 Author: Martin Barron
 Maintainer: Martin Barron <martin@barron.cc>
 Description: This package provides basic data exploration functions that work with Tidyverse packages and Magister pipes.  This means, among other things, that the first argument of each function is a dataframe and that variabls are passed using lazy evaluation.  In addition, the default behavior of each function is to return the ORIGNAL dataframe as passed to it. That is, most functions main purpose is to generate a side effect that prints its result.
