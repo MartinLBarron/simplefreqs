@@ -18,10 +18,11 @@
 
 summaryMeans <- function(df, ...,
                          group_by=NA,
-                         types = c("n", "nobs", "nmiss", "sum","mean","sd", "min", "p1", "p5", "p25", "median", "p75", "p95", "p99", "max"),
+                         types = c("n", "nobs", "nmiss","mean","sd", "min", "p25", "median", "p75", "max"),
                          saveResults=F,
                          printResults=T,
-                         na.rm=T){
+                         na.rm=T, 
+                         transpose=T){
 
   group_by <- enquo(group_by)
 
@@ -39,7 +40,7 @@ summaryMeans <- function(df, ...,
   }
 
   #An n function conflicts with dplyr, so we capture n and rename it myN so user can still request N
-  types =ifelse(types=="n", "myN", types)
+  types <- ifelse(types=="n", "myN", types)
 
   #Setup helper functions
   myN <- function(x, na.rm=F) length(x)
@@ -87,16 +88,26 @@ summaryMeans <- function(df, ...,
   #Now rename n variable for printing
   results <-mutate(results, type=ifelse(type=="myN", "N", type))
 
-  resultsA <- as.data.frame(results[,1])
-  names(resultsA)<-c("Statistic")
-  resultsB <- as.data.frame(results[,2:length(results)])
+  #Left over from when I set formattin here
+  # resultsA <- as.data.frame(results[,1])
+  # names(resultsA)<-c("Statistic")
+  # resultsB <- as.data.frame(results[,2:length(results)])
+  # results <-bind_cols(resultsA,resultsB)
   # for (i in 1:length(resultsB)){
   #   resultsB[,i]<-comma(resultsB[,i], digits = 1)
   # }
 
-  results <-bind_cols(resultsA,resultsB)
-
-  xx<<-results
+  if (transpose==T){
+    rownames(results) <- results$type
+    results <- select(results, -type)
+    results <- t(results)
+    results <- as.data.frame(results)
+    results$Variables <- row.names(results)
+    row.names(results) <- NULL
+    tt<<-results
+    results <- select(results, Variables, everything())
+    t2<<-results
+  }
 
   #Print results as requested
   if (printResults==T){
@@ -113,15 +124,4 @@ summaryMeans <- function(df, ...,
     return(df_orig)
   }
 }
-
-
-# df <- mtcars
-#
-# df[1,1]<-NA
-# df[5,1]<-NA
-# df[2,2]<-NA
-#
-# test <- summaryMeans(df, mpg, cyl, disp, saveResults = T, na.rm=T)
-#
-
 

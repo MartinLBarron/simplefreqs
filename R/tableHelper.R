@@ -206,7 +206,7 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
 
 
 print.freqR_summaryMeans <-function(df){
-  breaks <- c(4,7)
+  breaks <- NA
   printIt(df, breaks, printTotalRow = F, printTitleRow=F)
 }
 

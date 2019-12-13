@@ -6,7 +6,7 @@
 #' \code{freqMd} prints a frequency table for each variable passed to it.
 #' 
 #'
-#' @param ... A dataframe
+#' @param ... parameters to be passed to freq
 
 #' @import dplyr
 #' @import ggplot2

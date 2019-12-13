@@ -36,7 +36,8 @@ freq
 
 This function prints a frequency table for variables passed to it.  In
 order to fit within the tidyverse, it takes as its first argument a dataframe
-and returns the frequency table as a dataframe.
+and returns the frequency table as a dataframe. See ]code{freqMd} for version
+appropriate for easy markdown printing.
 }
 \examples{
 \dontrun{

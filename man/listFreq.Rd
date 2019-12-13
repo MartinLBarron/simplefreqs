@@ -5,7 +5,7 @@
 \title{Frequency list of multiple variables crossed}
 \usage{
 listFreq(df, ..., plotResults = T, saveResults = F, printResults = T,
-  sortResults = T, levelError = T, na.rm = F)
+  sortResults = F, levelError = T, na.rm = F)
 }
 \arguments{
 \item{df}{A dataframe.}
@@ -21,8 +21,8 @@ function inside a dplyr chain}
 \item{printResults}{If TRUE (default), prints results to console.  Otherwise,
 if FALSE, no results are printed.}
 
-\item{sortResults}{If TRUE (default), sort output in descending order of n.
-If FALSE, sort output in ascending order of levels}
+\item{sortResults}{If FALSE (default), prints results in cross order.  Otherwise,
+if TRUE, sort results by frequency.}
 
 \item{levelError}{if TRUE (default) gives an error if the variable passed
 has more than 25 levels. If}

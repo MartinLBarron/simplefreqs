@@ -12,8 +12,12 @@ df[2,2]<-NA
 
 
 # Test Summary Means ------------------------------------------------------
-test <- summaryMeans(df, mpg, cyl, disp, saveResults = T, na.rm=T)
-test <- summaryMeans(df, mpg)
+test <- summaryMeans(df, mpg, cyl, disp, saveResults = T, na.rm=T, transpose = T)
+test <- summaryMeans(df, mpg, cyl, disp, saveResults = T, na.rm=T, transpose = F)
+
+test <- summaryMeans(df, mpg, group_by = cyl)
 
 
 }
+
+
