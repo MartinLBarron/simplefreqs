@@ -136,7 +136,7 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
 
   # Print Title ------------------------------------------------------------
   if (printTitleRow==T){
-    cat("\n\nFREQUENCY: ", attr(df, "title"), "\n", sep="")
+    cat("\nFREQUENCY: ", attr(df, "title"), "\n", sep="")
   }
   
   # Print Table top ---------------------------------------------------------
@@ -210,9 +210,18 @@ print.freqR_summaryMeans <-function(df){
   printIt(df, breaks, printTotalRow = F, printTitleRow=F)
 }
 
+#' @export
+
 print.freqR_freq <-function(df){
   breaks <- NA
   printIt(df, breaks, formats=c("c", "n0","n1", "n0", "n1"), printTotalRow = T,printTitleRow=T)
+  
+  missing=attr(df, "MissingRemoved", exact=T)
+  if (!is.null(missing)){
+    norig <- sum(df$Freq)+missing
+    naPercent<-(missing/norig)*100
+    cat(paste0(attr(df, "title", exact=T), " NA's excluded: ", prettyNum(missing, big.mark=","), " (", formatC(naPercent, digits=1, format="f"), "%)\n\n"))
+  }
 }
 
 print.freqR_listFreq <-function(df){

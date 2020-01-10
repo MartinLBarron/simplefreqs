@@ -4,28 +4,21 @@
 \alias{freq}
 \title{Caclulate frequencies of variable}
 \usage{
-freq(df, ..., plotResults = T, saveResults = F, printResults = T,
-  sortResults = T, levelError = T, na.rm = F)
+freq(df, ..., plot = T, sort = T, na.rm = F)
 }
 \arguments{
-\item{df}{A dataframe}
+\item{df}{A dataframe (You can also pass this program a single variable and it will silently transform it to a dataframe)}
 
-\item{plotResults}{if TRUE (default) prints bar chart of results.  If FALSE, no chart.}
+\item{...}{a variable or variables in associated dataframe. If you pass no variables, freq will be run on all variables in dataframe}
 
-\item{saveResults}{If FALSE (default) returns nothing. If TRUE (default), returns frequency results as a dataframe. This allows user to place this function inside a dplyr chain}
+\item{plot}{if TRUE (default) prints bar chart of results.  If FALSE, no chart.}
 
-\item{printResults}{If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.}
+\item{sort}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{sortResults}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
-
-\item{levelError}{if TRUE (default) gives an error if the variable passed has more than 100 levels. If}
-
-\item{na.rm}{if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)}
-
-\item{x}{a variable in associated dataframe.}
+\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)}
 }
 \value{
-Null or dataframe containing frequencies. Prints frequency tabl
+dataframe containing frequencies. Optionally prints frequency table and plots frequency
 }
 \description{
 \code{freq} prints a frequency table for each variable passed to it.

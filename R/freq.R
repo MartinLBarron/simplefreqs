@@ -11,15 +11,12 @@
 #' and returns the frequency table as a dataframe. See ]code{freqMd} for version
 #' appropriate for easy markdown printing.
 #'
-#' @param df A dataframe
-#' @param x a variable in associated dataframe.
-#' @param saveResults If FALSE (default) returns nothing. If TRUE (default), returns frequency results as a dataframe. This allows user to place this function inside a dplyr chain
-#' @param plotResults if TRUE (default) prints bar chart of results.  If FALSE, no chart.
-#' @param printResults If TRUE (default), prints results to console.  Otherwise, if FALSE, no results are printed.
-#' @param sortResults If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
-#' @param levelError if TRUE (default) gives an error if the variable passed has more than 100 levels. If
-#' @param na.rm if TRUE (default) NAs are included in frequency list.  If FALSE, NA are removed (but reported seperately)
-#' @return Null or dataframe containing frequencies. Prints frequency tabl
+#' @param df A dataframe (You can also pass this program a single variable and it will silently transform it to a dataframe)
+#' @param ... a variable or variables in associated dataframe. If you pass no variables, freq will be run on all variables in dataframe
+#' @param plot if TRUE (default) prints bar chart of results.  If FALSE, no chart.
+#' @param sort If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
+#' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)
+#' @return  dataframe containing frequencies. Optionally prints frequency table and plots frequency
 #' @examples
 #' \dontrun{
 #' freq(iris, Species)
@@ -31,9 +28,7 @@
 #' @export
 #' 
 
-freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResults=T, levelError=T, na.rm=F){
-  #library(rlang)
-  
+freq <- function(df, ..., plot=T, sort=T, na.rm=F){
   
   #check if dataframe. If not, translate to dataframe
   if (!is.data.frame(df)){
@@ -54,8 +49,8 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
   ## Deal with ...
   #Capture all variables passed in
   vars <- quos(...)
-
-   #if no vars passed in, get all variables in dataframe
+  
+  #if no vars passed in, get all variables in dataframe
   #this requires special "sym" command from rlang
   if (length(vars)==0){
     vars <- list()
@@ -69,7 +64,6 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
   
   for (var in vars){
     df <- df_orig
-    levelErrorNumber <- 100
     #Capture input variable for non-standard evaluation
     enquo_x <- var
     
@@ -80,23 +74,27 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
       df=filter(df, !is.na(!! get_expr(enquo_x)))
     }
     
-    #check number of levels and give appropriate errors
-    if (levelError==T){
-      l <- length(levels(factor(df[[quo_name(enquo_x)]])))
-      if (l>25){
-        stop(paste(quo_name(enquo_x),"contains more than", levelErrorNumber, "levels (has", length(levels(factor(df[[quo_name(enquo_x)]]))), "levels). Set levelError=FALSE to proceed."))
-      }
-    }
-    
     #Calculate frequencies
-    df<-  df %>%
-      count(factor(!! get_expr(enquo_x)), sort=sortResults) %>%
+    #note that count gives a warning because we're using factor to make a implicit
+    # NA level. To get arround with this we supress warnings temporarily
+    # but that requires a special margrittr operator %T>%
+    # df<-  df %T>%
+    #   {options(warn=-1)} %>%
+    #   count(factor(!! get_expr(enquo_x) ), sort=sortResults) %T>%
+    #   {options(warn=0)} %>%
+    #   mutate(percentage = (n/sum(n))*100,
+    #          cumulative = cumsum(n),
+    #          cumulative_percent = (cumulative/sum(n))*100
+    #   )
+
+    df<-  df  %>%
+      mutate (temp=factor(!! get_expr(enquo_x),exclude=NULL)) %>%
+      count(temp, sort=sortResults)  %>%
       mutate(percentage = (n/sum(n))*100,
              cumulative = cumsum(n),
              cumulative_percent = (cumulative/sum(n))*100
       )
     
-
     if (sortResults==T){
       df[1] <- factor(df[[1]], levels = df[[1]][order(-df$n)])
     }
@@ -105,23 +103,20 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
     n <- names(df)
     names(df) <- c(quo_name(enquo_x), "Freq", "%", "Cum. Freq", "Cum. %")
     
-    # n[1] <- quo_name(enquo_x)
-    # names(df) <- n
-    
     #Set results class
-    class(df) <- c("freqR_freq",class(df))
-
+    #class(df) <- c("freqR_freq",class(df))
+    #print(class(df))
+    class(df) <- c("freqR_freq", "data.frame")
+    
+    attr(df, "title") <- quo_name(enquo_x)
+    #print(df)
+    
     #Print results as requested
-    if (printResults==T){
-      attr(df, "title") <- quo_name(enquo_x)
-      print(df)
-      
-      if (na.rm==T){
-        naCount1 <- nrow(naCount)
-        naPercent<-(naCount1/nrow(df_orig))*100
-        cat(paste0("NA's excluded: ", prettyNum(naCount1, big.mark=","), " (", formatC(naPercent, digits=1, format="f"), "%)\n\n"))
-      }
-    }
+    if (na.rm==T){
+      naCount1 <- nrow(naCount)
+      attr(df, "MissingRemoved") <- naCount1
+     }
+    
     
     #Plot results
     if (plotResults==T){
@@ -131,16 +126,9 @@ freq <- function(df, ..., plotResults=T, saveResults=F, printResults=T, sortResu
       gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
       print (gg)
     }
-
+    
   }
   
-  
-  #Save results as requested
-  if (saveResults==T){
-    return(df)
-  }
-  else{
-    invisible(NULL)
-  }
+  return(df)
 }
 

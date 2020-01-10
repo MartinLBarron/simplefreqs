@@ -2,17 +2,31 @@
 #Testing
 
 # testing -----------------------------------------------------------------
-#
+
 # library(forcats)
 # library(dplyr)
 # dfgss <-gss_cat
-#
-# # Simple, single ------------------------------------------------------------------
+
+# Simple, single ------------------------------------------------------------------
 # freq(iris,Species)
 # freq(dfgss, year)
 # freq(dfgss$year)
-# freq(dfgss[,"year"])
-#x <-freqMd(iris,Species)
+# freq(dfgss[,"year"], sortResults=F)
+# x <-freq(iris,Species)
+# class(x)
+# print(x)
+
+
+# # Missings ----------------------------------------------------------------
+# #
+# dfgss$year[c(seq(1,1000, by=4))] <- NA
+# #
+# freq(dfgss, year, na.rm=T)
+# x <- freq(dfgss, year, na.rm = T)
+# print(x)
+
+# freq(dfgss, year, sortResults=F, na.rm = F)
+
 
 # # # Multiple variables ------------------------------------------------------
 # freq(dfgss, year, marital, partyid)
@@ -43,16 +57,10 @@
 # df <- freq(dfgss, denom, levelError = T)
 # df <- freq(dfgss, denom, levelError = F, sortResults = T, saveResults = T)
 #
-# # Missings ----------------------------------------------------------------
-#
-# dfgss$year[c(seq(1,1000, by=4))] <- NA
-#
-# x <-freq(dfgss, year)
-# x <-freq(dfgss, year, na.rm = T)
 
 # # As part of a dplyr chain ------------------------------------------------
-# #As part of chain
+#As part of chain
 # df <- dfgss %>%
 #   filter(year>2006) %>%
 #   freq(year)
-#
+

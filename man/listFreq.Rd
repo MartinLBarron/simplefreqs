@@ -4,8 +4,16 @@
 \alias{listFreq}
 \title{Frequency list of multiple variables crossed}
 \usage{
-listFreq(df, ..., plotResults = T, saveResults = F, printResults = T,
-  sortResults = F, levelError = T, na.rm = F)
+listFreq(
+  df,
+  ...,
+  plotResults = T,
+  saveResults = F,
+  printResults = T,
+  sortResults = F,
+  levelError = T,
+  na.rm = F
+)
 }
 \arguments{
 \item{df}{A dataframe.}

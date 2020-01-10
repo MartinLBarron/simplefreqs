@@ -4,9 +4,16 @@
 \alias{summaryMeans}
 \title{Produces summary statistics table}
 \usage{
-summaryMeans(df, ..., group_by = NA, types = c("n", "nobs", "nmiss", "sum",
-  "mean", "sd", "min", "p1", "p5", "p25", "median", "p75", "p95", "p99", "max"),
-  saveResults = F, printResults = T, na.rm = T)
+summaryMeans(
+  df,
+  ...,
+  group_by = NA,
+  types = c("n", "nobs", "nmiss", "mean", "sd", "min", "p25", "median", "p75", "max"),
+  saveResults = F,
+  printResults = T,
+  na.rm = T,
+  transpose = T
+)
 }
 \arguments{
 \item{df}{a dataframe containing the variables to summarize}
