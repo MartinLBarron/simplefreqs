@@ -213,6 +213,10 @@ print.freqR_summaryMeans <-function(df){
 #' @export
 
 print.freqR_freq <-function(df){
+  
+  names(df) <- c(attr(df, "title", exact=T), "Freq", "%", "Cum. Freq", "Cum. %")
+  
+  
   breaks <- NA
   printIt(df, breaks, formats=c("c", "n0","n1", "n0", "n1"), printTotalRow = T,printTitleRow=T)
   

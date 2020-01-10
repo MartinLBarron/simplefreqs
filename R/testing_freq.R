@@ -3,34 +3,33 @@
 
 # testing -----------------------------------------------------------------
 
-# library(forcats)
-# library(dplyr)
-# dfgss <-gss_cat
+library(forcats)
+library(dplyr)
+dfgss <-gss_cat
 
 # Simple, single ------------------------------------------------------------------
-# freq(iris,Species)
-# freq(dfgss, year)
-# freq(dfgss$year)
-# freq(dfgss[,"year"], sortResults=F)
-# x <-freq(iris,Species)
-# class(x)
-# print(x)
-
+freq(iris,Species)
+freq(dfgss, year)
+freq(dfgss$year)
+freq(dfgss[,"year"], sort=F)
+x <-freq(iris,Species)
+print(x)
+x
 
 # # Missings ----------------------------------------------------------------
-# #
-# dfgss$year[c(seq(1,1000, by=4))] <- NA
-# #
-# freq(dfgss, year, na.rm=T)
-# x <- freq(dfgss, year, na.rm = T)
-# print(x)
 
-# freq(dfgss, year, sortResults=F, na.rm = F)
+dfgss$year[c(seq(1,1000, by=4))] <- NA
+
+freq(dfgss, year, na.rm=T)
+x <- freq(dfgss, year, na.rm = T)
+x
+
+freq(dfgss, year, sort=F, na.rm = F)
 
 
-# # # Multiple variables ------------------------------------------------------
-# freq(dfgss, year, marital, partyid)
-#
+# Multiple variables ------------------------------------------------------
+freq(dfgss, year, marital, partyid)
+#No longer working
 # # # whole dataset -----------------------------------------------------------
 # dfgss1 <- select(dfgss, year, marital, race, partyid)
 # freq(dfgss1)

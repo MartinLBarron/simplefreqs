@@ -89,19 +89,19 @@ freq <- function(df, ..., plot=T, sort=T, na.rm=F){
 
     df<-  df  %>%
       mutate (temp=factor(!! get_expr(enquo_x),exclude=NULL)) %>%
-      count(temp, sort=sortResults)  %>%
+      count(temp, sort=sort)  %>%
       mutate(percentage = (n/sum(n))*100,
              cumulative = cumsum(n),
              cumulative_percent = (cumulative/sum(n))*100
       )
     
-    if (sortResults==T){
+    if (sort==T){
       df[1] <- factor(df[[1]], levels = df[[1]][order(-df$n)])
     }
     
     #Format name for printing
     n <- names(df)
-    names(df) <- c(quo_name(enquo_x), "Freq", "%", "Cum. Freq", "Cum. %")
+    names(df) <- c(quo_name(enquo_x), "Freq", "Percent", "CumFreq", "CumPercent")
     
     #Set results class
     #class(df) <- c("freqR_freq",class(df))
@@ -119,7 +119,7 @@ freq <- function(df, ..., plot=T, sort=T, na.rm=F){
     
     
     #Plot results
-    if (plotResults==T){
+    if (plot==T){
       gg <- ggplot(data=df, aes_string(quo_name(enquo_x), "Freq"))
       gg <- gg + geom_bar(stat="identity")
       gg <- gg + theme_minimal() + ggtitle (paste("Frequency:", quo_name(enquo_x))) + ylab("Count")
