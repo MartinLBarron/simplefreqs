@@ -3,7 +3,6 @@
 S3method(print,freqR_freq)
 export(freq)
 export(freqs)
-export(listFreq)
 export(summaryMeans)
 export(summaryTable)
 import(dplyr)
