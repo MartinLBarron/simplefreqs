@@ -4,12 +4,12 @@
 \alias{freq}
 \title{Caclulate frequencies of variable}
 \usage{
-freq(df, ..., plot = T, sort = T, na.rm = F)
+freq(df, var = NA, plot = T, sort = T, na.rm = F)
 }
 \arguments{
 \item{df}{A dataframe (You can also pass this program a single variable and it will silently transform it to a dataframe)}
 
-\item{...}{a variable or variables in associated dataframe. If you pass no variables, freq will be run on all variables in dataframe}
+\item{var}{a variable in associated dataframe}
 
 \item{plot}{if TRUE (default) prints bar chart of results.  If FALSE, no chart.}
 
@@ -18,7 +18,7 @@ freq(df, ..., plot = T, sort = T, na.rm = F)
 \item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)}
 }
 \value{
-dataframe containing frequencies. Optionally prints frequency table and plots frequency
+dataframe containing frequencies.
 }
 \description{
 \code{freq} prints a frequency table for each variable passed to it.
@@ -27,10 +27,9 @@ dataframe containing frequencies. Optionally prints frequency table and plots fr
 freq
 
 
-This function prints a frequency table for variables passed to it.  In
+This function prints a frequency table for the variable passed to it.  In
 order to fit within the tidyverse, it takes as its first argument a dataframe
-and returns the frequency table as a dataframe. See ]code{freqMd} for version
-appropriate for easy markdown printing.
+and returns the frequency table as a dataframe.
 }
 \examples{
 \dontrun{
