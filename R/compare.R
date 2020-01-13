@@ -1,43 +1,40 @@
-#' Produces summary statistics table
+#' Produces a comparison table
 #'
 #' @param df a dataframe containing the variables to summarize
 #' @param ... one or more variables to summarize
+#' @param group_var if given, statistics will be computed for each level of groupby variable
 #' @param types types of summary statistics to computed (as vector of strings). Default is all of the following: "n", "nobs", "nmiss", "sum","mean","sd", "min", "p1", "p5", "p25", "median", "p75", "p95", "p99", "max"
-#' @param group_by if given, statistics will be computed for each level of groupby variable
-#' @param saveResults if TRUE, dataframe of results is returned.  If FAlSE (default) original dataframe is returned
-#' @param printResults if TRUE (default), summary table written to console.  If FALSE no results written to console.
+#' @param long if TRUE (default), aranges statistics in columns and variable in rows Otherwise, shows reverse
 #' @param na.rm whether or not na.rm==T is passsed to summarizing functions.
 #'
-#' @return dataframe
-#' #'
+#' @return Returns a dataframe containing summary statistics.
+#' 
 #' @examples
 #' \dontrun{}
-#'
+#' compare(df, mpg, cyl)
+#' 
 #' @import dplyr
-#' @export summaryMeans
+#' 
+#' @export
 
-summaryMeans <- function(df, ...,
-                         group_by=NA,
-                         types = c("n", "nobs", "nmiss","mean","sd", "min", "p25", "median", "p75", "max"),
-                         saveResults=F,
-                         printResults=T,
-                         na.rm=T, 
-                         transpose=T){
-
-  group_by <- enquo(group_by)
-
-
+compare <- function(df, ...,
+                    group_var=NA,
+                    types = c("n", "nobs", "nmiss","mean","sd", "min", "p25", "median", "p75", "max"),
+                    long=F,
+                    na.rm=T){
+  
+  enquo_group_by <- enquo(group_var)
+  
+  
   enquo_vars <- quos(...)
-
-  #Save df as is for later return
-  df_orig=df
-
+  
   #limit dataset to only needed variables
-  if (is.na(quo_name(group_by))){
-  df <- select(df, !!!enquo_vars)
+  if (is.na(quo_name(enquo_group_by))){
+    df <- select(df, !!!enquo_vars)
   }else{
-    df <- select(df, !!!enquo_vars, !!group_by)
+    df <- select(df, !!!enquo_vars, !!enquo_group_by)
   }
+
 
   #An n function conflicts with dplyr, so we capture n and rename it myN so user can still request N
   types <- ifelse(types=="n", "myN", types)
@@ -53,10 +50,15 @@ summaryMeans <- function(df, ...,
   p95 <- function(x,na.rm=F) quantile(x,.95, na.rm=na.rm)
   p5 <- function(x,na.rm=F) quantile(x,.5, na.rm=na.rm)
 
+
+  #setup container dataframe to hold results
   results <-data.frame()
   counter=0
-  if (is.na(quo_name(group_by))){
 
+  #We run separate code depending on whether they requested a group by variable or not
+  if (is.na(quo_name(enquo_group_by))){
+
+    #Loop over summary statistics for all variables in dataset
     for (type in types){
       counter=counter+1
       x <- df %>%
@@ -72,14 +74,16 @@ summaryMeans <- function(df, ...,
   }
   else {
     for (type in types){
+      counter=counter+1
       x <- df %>%
-        group_by(!!group_by) %>%
+        group_by(!! enquo_group_by) %>%
         summarize_all(type, na.rm=na.rm) %>%
         mutate(type=type, sort=counter)
       results <- bind_rows(results, x)
     }
-    results <- arrange(results,!!group_by,sort) %>%
-      select(-sort)
+
+    results <- arrange(results,!!enquo_group_by,sort) %>%
+    select(-sort)
     #rearrange columns and rows
     results <- results[, c(1, length(results), seq(2,length(results)-1))]
 
@@ -88,40 +92,17 @@ summaryMeans <- function(df, ...,
   #Now rename n variable for printing
   results <-mutate(results, type=ifelse(type=="myN", "N", type))
 
-  #Left over from when I set formattin here
-  # resultsA <- as.data.frame(results[,1])
-  # names(resultsA)<-c("Statistic")
-  # resultsB <- as.data.frame(results[,2:length(results)])
-  # results <-bind_cols(resultsA,resultsB)
-  # for (i in 1:length(resultsB)){
-  #   resultsB[,i]<-comma(resultsB[,i], digits = 1)
-  # }
-
-  if (transpose==T){
+  if (long==F){
     rownames(results) <- results$type
     results <- select(results, -type)
     results <- t(results)
     results <- as.data.frame(results)
     results$Variables <- row.names(results)
     row.names(results) <- NULL
-    tt<<-results
     results <- select(results, Variables, everything())
-    t2<<-results
   }
 
-  #Print results as requested
-  if (printResults==T){
-    dfprint <- as.data.frame(results)
-    class(dfprint) <- c("freqR_summaryMeans",class(results))
-    print(dfprint)
-  }
-
-  #Save results as requested
-  if (saveResults==T){
-    class(results) <- c("freqR_summaryMeans",class(results))
-    return(results)
-  } else{
-    return(df_orig)
-  }
+  class(results) <- c("freqR_compare",class(results))
+  return(results)
 }
 
