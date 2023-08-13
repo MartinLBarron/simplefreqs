@@ -2,9 +2,7 @@
 
 S3method(print,freqR_compare)
 S3method(print,freqR_freq)
-export(compare)
 export(freq)
-export(freqs)
 import(dplyr)
 import(ggplot2)
 import(rlang)

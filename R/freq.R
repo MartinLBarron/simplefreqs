@@ -100,3 +100,9 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   return(df)
 }
 
+
+x = '\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550'
+y = '\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500'
+
+cat(x); cat('\n')
+cat(y); cat('\n')
