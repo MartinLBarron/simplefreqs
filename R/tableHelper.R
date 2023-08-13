@@ -101,8 +101,11 @@ DetermineColumnWidths <- function(df){
 
 # x <- as.data.frame(apply(df,2, formatColumn), stringsAsFactors = F)
 
+#\u2500 is a single linke
+#\u2550 is a double line
+
 # Generic function to lay out table as desired ---------------------------------
-printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="-", lowerSymbol="=", center=F, tableSymbol="=", tablePadding=0, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T,printTitleRow=F){
+printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol="\u2500", lowerSymbol="\u2550", center=F, tableSymbol="\u2550", tablePadding=0, spaceSymbol=" ", printTableSymbol=T, printHeaderRow=T, printTotalRow=T,printTitleRow=F){
   
   #Convert Dataframe to all character
   #df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
@@ -204,30 +207,21 @@ printIt <- function(df, breaks=NA, formats=NA, margin=5, divider="", upperSymbol
   }
 }
 
-#' @export
-
-print.freqR_compare <-function(df){
-  breaks <- NA
-  formats=c("c", "n0","n0","n0", "n1", "n1", "n1", "n1", "n1", "n1", "n1")
-  
-  printIt(df, breaks, formats=formats, printTotalRow = T, printTitleRow=F)
-
-}
 
 #' @export
 
-print.freqR_freq <-function(df){
+print.SimpleFreqs_freq <-function(x, ...){
   
-  names(df) <- c(attr(df, "title", exact=T), "Freq", "%", "Cum. Freq", "Cum. %")
+  names(x) <- c(attr(x, "title", exact=T), "Freq", "%", "Cum. Freq", "Cum. %")
   
   breaks <- NA
-  printIt(df, breaks, formats=c("c", "n0","n1", "n0", "n1"), printTotalRow = T,printTitleRow=T)
+  printIt(x, breaks, formats=c("c", "n0","n1", "n0", "n1"), printTotalRow = T,printTitleRow=T)
   
-  missing=attr(df, "MissingRemoved", exact=T)
+  missing=attr(x, "MissingRemoved", exact=T)
   if (!is.null(missing)){
-    norig <- sum(df$Freq)+missing
+    norig <- sum(x$Freq)+missing
     naPercent<-(missing/norig)*100
-    cat(paste0(attr(df, "title", exact=T), " NA's excluded: ", prettyNum(missing, big.mark=","), " (", formatC(naPercent, digits=1, format="f"), "%)\n\n"))
+    cat(paste0(attr(x, "title", exact=T), " NA's excluded: ", prettyNum(missing, big.mark=","), " (", formatC(naPercent, digits=1, format="f"), "%)\n\n"))
   }
 }
 

@@ -3,15 +3,14 @@
 
 # testing -----------------------------------------------------------------
 
-# library(forcats)
-# library(dplyr)
-# dfgss <-gss_cat
+library(forcats)
+library(dplyr)
+dfgss <-gss_cat
 
 # Simple, single ------------------------------------------------------------------
 # freq(iris,Species)
 # freq(dfgss, year)
 # freq(dfgss$year)
-# freq(dfgss[["year"]], sort=F) # This doesn't work because it's still passing a dataframe
 # x <-freq(iris,Species)
 # print(x)
 # y=dfgss$year
