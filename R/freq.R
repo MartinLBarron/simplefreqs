@@ -1,28 +1,31 @@
-#' freq
+#' Construct frequency table
 #' 
-#' @title Caclulate frequencies of variable
-#'
 #' @description
-#' \code{freq} prints a frequency table for each variable passed to it.
+#' Prints a frequency table for the specified variable.
 #' 
 #' @details
-#' This function prints a frequency table for the variable passed to it.  In
+#' This function prints a frequency table for the specified variable. While the 
 #' order to fit within the tidyverse, it takes as its first argument a dataframe
 #' and returns the frequency table as a dataframe. 
 #'
-#' @param df A dataframe (You can also pass this program a single variable and it will silently transform it to a dataframe)
+#' @param df A data frame (optionally, you can pass a variable as the first argument.)
+#' 
 #' @param var a variable in associated dataframe
+#' 
 #' @param plot if TRUE (default) prints bar chart of results.  If FALSE, no chart.
+#' 
 #' @param sort If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
+#' 
 #' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)
-#' @return  dataframe containing frequencies.
+#'
+#' @return  data frame containing frequencies.
+#' 
 #' @examples
 #' \dontrun{
 #' freq(iris, Species)
 #'}
 #' @import dplyr
 #' @import ggplot2
-#' @import rlang
 #' 
 #' @export
 #' 
@@ -34,27 +37,33 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   #This allows you to feed it either a vector or a dataframe/variable combo
   if (!is.data.frame(df)){
     dfname <- deparse(substitute(df))
-    print(dfname)
+    # if in form df$var
     if (grepl("$", dfname, fixed=T)){
       dfname <- strsplit(dfname, "$", fixed=T)[[1]][[2]]
       df <- data.frame(x=df)
       names(df)<-c(dfname)
-      var <- sym(dfname)
+      var <- rlang::sym(dfname)
+    # if in form df[["var"]]
     } else if (grepl("\"", dfname, fixed=T)){
       dfname <- strsplit(dfname, "\"", fixed=T)[[1]][[2]]
       df <- data.frame(x=df)
       names(df)<-c(dfname)
-      var <- sym(dfname)
+      var <- rlang::sym(dfname)
+    # if just a vector vector
     } else{
       df <- data.frame(x=df)
       names(df)<-c(dfname)
-      var <- sym(dfname)
+      var <- rlang::sym(dfname)
     }
   } 
-  
+
+  # testing
+
+  #Capture input variable for non-standard evaluation
   enquo_x <- enquo(var)
   
-  #Capture input variable for non-standard evaluation
+  #Capture input variable class for later printing
+  #var_class <- class(df[[var]])
   
   #remove NA if na.rm=T
   if (na.rm==T){
@@ -66,11 +75,11 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   
   # The main meet of the function, calculate freqs here
   df<-  df  %>%
-    mutate (temp=factor(!! enquo_x,exclude=NULL)) %>%
-    count(temp, sort=sort)  %>%
+    mutate (temp = factor(!! enquo_x,exclude=NULL)) %>%
+    count(.data$temp, sort=sort)  %>% #.data$temp used to quiet R check note
     mutate(percentage = (n/sum(n))*100,
            cumulative = cumsum(n),
-           cumulative_percent = (cumulative/sum(n))*100
+           cumulative_percent = (.data$cumulative/sum(n))*100 #.data$cumulative used to quiet R check note
     )
   
   #sort factor for chart
@@ -83,7 +92,7 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   names(df) <- c(quo_name(enquo_x), "Freq", "Percent", "CumFreq", "CumPercent")
   
   #Set results class
-  class(df) <- c("freqR_freq", "data.frame")
+  class(df) <- c("SimpleFreqs_freq", "data.frame")
   attr(df, "title") <- quo_name(enquo_x)
   if (na.rm==T){
     attr(df, "MissingRemoved") <- naCount1
