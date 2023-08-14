@@ -6,24 +6,24 @@
 #' @details
 #' This function prints a frequency table for the specified variable. While the 
 #' order to fit within the tidyverse, it takes as its first argument a dataframe
-#' and returns the frequency table as a dataframe. 
+#' and returns the frequency table as a data frame. 
 #'
 #' @param df A data frame (optionally, you can pass a variable as the first argument.)
 #' 
-#' @param var a variable in associated dataframe
+#' @param var a variable in associated data frame
 #' 
 #' @param plot if TRUE (default) prints bar chart of results.  If FALSE, no chart.
 #' 
 #' @param sort If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
 #' 
-#' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)
+#' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)
 #'
 #' @return  data frame containing frequencies.
 #' 
 #' @examples
-#' \dontrun{
+#' 
 #' freq(iris, Species)
-#'}
+#' 
 #' @import dplyr
 #' @import ggplot2
 #' 
@@ -32,6 +32,9 @@
 
 freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   
+  if (!is.atomic(df) & !is.data.frame(df)){
+    stop("The first argument must be a data frame or vector")
+  }
   
   #check if dataframe. If not, translate to dataframe
   #This allows you to feed it either a vector or a dataframe/variable combo

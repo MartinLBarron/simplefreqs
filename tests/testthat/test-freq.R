@@ -10,25 +10,32 @@ test_that("basic freq of tidy vector", {
   expect_snapshot(freq(iris, Species, plot = F))
 })
 
-test_that("basic freq of tidy vector", {
-  expect_snapshot(freq(iris, Species, plot = F))
+test_that("basic freq of indexing", {
+  expect_snapshot(freq(iris[["Species"]], plot = F))
 })
 
-# Other formats that SHOULD NOT work
 
-# Other formats -----------------------------------------------------------
+# Other formats  that should not work ------------------------------------
 
 
 test_that("basic freq of List", {
-  expect_snapshot(freq(iris, Species, plot = F))
+  list_data <- list("Red", "Green", c(21,32,11), TRUE, 51.23, 119.1)
+  expect_error(freq(list_data))
 })
 
 test_that("basic freq of matrix", {
-  expect_snapshot(freq(iris, Species, plot = F))
+  matrix_data <- matrix(c(1,2,3,4), nrow=2)
+  expect_error(freq(matrix_data))
+})
+
+test_that("basic freq of array", {
+  array_data <- array(c(1:24), dim=c(4,3,2))
+  expect_error(freq(array_data))
 })
 
 
 # Different classes of vectors --------------------------------------------
+
 test_that("Works with factors", {
   expect_snapshot(freq(iris, Species, plot = F))
 })
@@ -50,9 +57,12 @@ test_that("Works with Dates", {
   expect_snapshot(freq(df$dt, plot = F))
 })
 
-#TODO: add this
+
 test_that("Works with Times", {
-  expect_snapshot(freq(iris, Species, plot = F))
+  time <- as.POSIXct(c(1,2,3,3,3,4))
+  df <- data.frame(time=time)
+  expect_snapshot(freq(df$time, plot = F))
 })
+
 
 
