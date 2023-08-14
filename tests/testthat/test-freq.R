@@ -65,4 +65,13 @@ test_that("Works with Times", {
 })
 
 
+# Test plots --------------------------------------------------------------
+
+test_that("Works with plots", {
+  tester <- function(){
+    freq(df$dt, plot = )
+  }
+  expect_snapshot_file(tester)
+})
+
 

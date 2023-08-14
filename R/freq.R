@@ -82,7 +82,7 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
     count(.data$temp, sort=sort)  %>% #.data$temp used to quiet R check note
     mutate(percentage = (n/sum(n))*100,
            cumulative = cumsum(n),
-           cumulative_percent = (.data$cumulative/sum(n))*100 #.data$cumulative used to quiet R check note
+           cumulative_percent = (.data$cumulative/sum(n))*100, #.data$cumulative used to quiet R check note
     )
   
   #sort factor for chart
