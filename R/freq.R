@@ -96,20 +96,13 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
            cumulative = cumsum(n),
            cumulative_percent = (.data$cumulative/sum(n))*100, #.data$cumulative used to quiet R check note
     )
-  print(levels(df[[1]]))
-  # Set values of NA to print as <NA>
-  # The problem with this approach is if literal value <NA> exists
-  # already it throws an error.  Better to change just for printing
-  # lab <- levels(df$temp)
-  # lab[is.na(lab)] <- "<NA>"
-  # levels(df$temp) <- lab
   
   #sort factor for chart
   if (sort==T){
     df[1] <- factor(df[[1]], exclude=NULL, levels = df[[1]][order(-df$n)])
   }
-  print(levels(df[[1]]))
-  #'     
+
+  
   #Format name in dataframe
   names(df) <- c(quo_name(enquo_x), "Freq", "Percent", "CumFreq", "CumPercent")
   
