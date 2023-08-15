@@ -115,10 +115,23 @@ printIt <- function(df,
                     printTableSymbol = T, 
                     printHeaderRow = T, 
                     printTotalRow = T, 
-                    printTitleRow = F) {
+                    printTitleRow = F,
+                    printMetadata = T) {
   
   # Get total N
   n <- sum(df$Freq)
+  
+  # Replace NA with <NA> for printing
+  # We check if <NA> exist in dataset and issues warning if it does
+  lab <- levels(df[[1]])
+  if ("<NA>" %in% lab){
+    warning ('the string "<NA>" was detected. This conflicts with the printed NA results')
+  }
+  lab[is.na(lab)] <- "<NA>"
+  levels(df[[1]]) <- lab
+
+  
+  
   # Convert Dataframe to all character
   # df <- as.data.frame(lapply(df, formatColumn), stringsAsFactors = F)
   # format as specified
@@ -151,11 +164,21 @@ printIt <- function(df,
   # get column %s
   totals <- c("Total", n, "100%", n, "100%")
   
+
+
+  
   # Print Title ------------------------------------------------------------
   if (printTitleRow == T) {
     cat("\nFREQUENCY: ", attr(df, "title"), "\n", sep = "")
   }
   
+  # Print Metadata ---------------------------------------------------------
+  if (printMetadata == T) {
+    cat("Class: ", attr(df, "varClass", exact=T), "\n", sep = "")
+    cat("Type: ", attr(df, "varType", exact=T), "\n", sep = "")
+    cat("Mode: ", attr(df, "varMode", exact=T), "\n", sep = "")
+    cat("Missing: ", attr(df, "missing", exact=T), "\n", sep = "")
+  }  
   # Print Table top ---------------------------------------------------------
   # print outer
   if (printTableSymbol == T) {
