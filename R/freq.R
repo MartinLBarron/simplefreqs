@@ -32,27 +32,33 @@
 
 freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   
+  # Check if df is vector or data frame.  Stop if not
   if (!is.atomic(df) & !is.data.frame(df)){
     stop("The first argument must be a data frame or vector")
   }
   
-  #check if dataframe. If not, translate to dataframe
-  #This allows you to feed it either a vector or a dataframe/variable combo
+  # Check if data frame. If not, translate to data frame (with specified var name)
+  # This allows you to feed it either a vector or a data frame/variable combo.
+  # So after this we have a dataframe (df) and a var even if we were just
+  # fed a vector
   if (!is.data.frame(df)){
     dfname <- deparse(substitute(df))
-    # if in form df$var
+   
+     # if in form df$var
     if (grepl("$", dfname, fixed=T)){
       dfname <- strsplit(dfname, "$", fixed=T)[[1]][[2]]
       df <- data.frame(x=df)
       names(df)<-c(dfname)
       var <- rlang::sym(dfname)
-    # if in form df[["var"]]
+    
+      # if in form df[["var"]]
     } else if (grepl("\"", dfname, fixed=T)){
       dfname <- strsplit(dfname, "\"", fixed=T)[[1]][[2]]
       df <- data.frame(x=df)
       names(df)<-c(dfname)
       var <- rlang::sym(dfname)
-    # if just a vector vector
+    
+      # if just a vector vector
     } else{
       df <- data.frame(x=df)
       names(df)<-c(dfname)
@@ -60,19 +66,25 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
     }
   } 
 
-  # testing
 
   #Capture input variable for non-standard evaluation
-  enquo_x <- enquo(var)
+  enquo_x <- rlang::enquo(var)
   
-  #Capture input variable class for later printing
-  #var_class <- class(df[[var]])
+  #Capture input variable data for later printing
+  var_class <- class(df[[rlang::get_expr(enquo_x)]])
+  var_type <- typeof(df[[rlang::get_expr(enquo_x)]])
+  var_mode <- mode(df[[rlang::get_expr(enquo_x)]])
+  
+  #Get NA count
+  var_missing <- sum(is.na(df[[rlang::get_expr(enquo_x)]]))
   
   #remove NA if na.rm=T
   if (na.rm==T){
     naCount <- df %>%
-      filter(is.na(!! get_expr(enquo_x)))
-    df=filter(df, !is.na(!! get_expr(enquo_x)))
+      filter(is.na(!! rlang::get_expr(enquo_x)))
+    
+    df=filter(df, !is.na(!! rlang::get_expr(enquo_x)))
+    
     naCount1 <- nrow(naCount)
   }
   
@@ -82,14 +94,21 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
     count(.data$temp, sort=sort)  %>% #.data$temp used to quiet R check note
     mutate(percentage = (n/sum(n))*100,
            cumulative = cumsum(n),
-           cumulative_percent = (.data$cumulative/sum(n))*100 #.data$cumulative used to quiet R check note
+           cumulative_percent = (.data$cumulative/sum(n))*100, #.data$cumulative used to quiet R check note
     )
+  print(levels(df[[1]]))
+  # Set values of NA to print as <NA>
+  # The problem with this approach is if literal value <NA> exists
+  # already it throws an error.  Better to change just for printing
+  # lab <- levels(df$temp)
+  # lab[is.na(lab)] <- "<NA>"
+  # levels(df$temp) <- lab
   
   #sort factor for chart
   if (sort==T){
-    df[1] <- factor(df[[1]], levels = df[[1]][order(-df$n)])
+    df[1] <- factor(df[[1]], exclude=NULL, levels = df[[1]][order(-df$n)])
   }
-  
+  print(levels(df[[1]]))
   #'     
   #Format name in dataframe
   names(df) <- c(quo_name(enquo_x), "Freq", "Percent", "CumFreq", "CumPercent")
@@ -99,7 +118,12 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   attr(df, "title") <- quo_name(enquo_x)
   if (na.rm==T){
     attr(df, "MissingRemoved") <- naCount1
-  }
+  } 
+  attr(df, "missing") <- var_missing
+  attr(df, "varClass") <- var_class
+  attr(df, "varType") <- var_type
+  attr(df, "varMode") <- var_mode
+
   #Plot results
   if (plot==T){
     gg <- ggplot(data=df, aes_string(quo_name(enquo_x), "Freq"))
