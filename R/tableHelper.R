@@ -101,23 +101,17 @@ DetermineColumnWidths <- function(df) {
 # \u2550 is a double line
 
 # Generic function to lay out table as desired ---------------------------------
-printIt <- function(df,
-                    breaks = NA,
-                    formats = NA,
-                    margin = 3,
-                    divider = "", 
-                    upperSymbol = "\u2500", 
-                    lowerSymbol = "\u2500", 
-                    tableSymbol = "\u2550", 
-                    center = F, 
-                    tablePadding = 0, 
-                    spaceSymbol = " ", 
-                    printTableSymbol = T, 
-                    printHeaderRow = T, 
-                    printTotalRow = T, 
-                    printTitleRow = F,
-                    printMetadata = T) {
+print_helper <- function(df,
+                         formats = NA,
+                         inner_table_padding = getOption("SimpleFreqs.inner_table_padding", default = 5),
+                         row_divider_symbol = getOption("SimpleFreqs.row_divider_symbol", default = "\u2500"),
+                         table_symbol = getOption("SimpleFreqs.table_symbol", default = "\u2550"), 
+                         print_table_symbol = getOption("SimpleFreqs.print_table_symbol", default = TRUE), 
+                         print_total_row = getOption("SimpleFreqs.print_table_total_row", default = TRUE), 
+                         print_metadata = getOption("SimpleFreqs.print_table_metadata", default = TRUE), 
+                         print_header_divider = getOption("SimpleFreqs.print_header_divider", default = TRUE)){
   
+  space_symbol = " "
   # Get total N
   n <- sum(df$Freq)
   
@@ -129,7 +123,7 @@ printIt <- function(df,
   }
   lab[is.na(lab)] <- "<NA>"
   levels(df[[1]]) <- lab
-
+  
   
   
   # Convert Dataframe to all character
@@ -151,7 +145,7 @@ printIt <- function(df,
   totalColumns <- length(df)
   maxColWidth <- DetermineColumnWidths(df)
   # add margins to columns
-  maxColWidth <- maxColWidth + margin
+  maxColWidth <- maxColWidth + inner_table_padding
   
   # Determine number of columns that can fit on screen
   maxColWidthRunning <- cumsum(maxColWidth)
@@ -164,60 +158,41 @@ printIt <- function(df,
   # get column %s
   totals <- c("Total", n, "100%", n, "100%")
   
-
-
-  
-  # Print Title ------------------------------------------------------------
-  if (printTitleRow == T) {
-    cat("\nFREQUENCY: ", attr(df, "title"), "\n", sep = "")
-  }
-  
   # Print Metadata ---------------------------------------------------------
-  if (printMetadata == T) {
+  if (print_metadata == TRUE) {
+    cat("\nFREQUENCY: ", attr(df, "title"), "\n", sep = "")
     cat("Class: ", attr(df, "varClass", exact=T), "\n", sep = "")
     cat("Type: ", attr(df, "varType", exact=T), "\n", sep = "")
     cat("Mode: ", attr(df, "varMode", exact=T), "\n", sep = "")
     cat("Missing: ", attr(df, "missing", exact=T), "\n", sep = "")
   }  
   # Print Table top ---------------------------------------------------------
-  # print outer
-  if (printTableSymbol == T) {
-    cat(rep(spaceSymbol, tablePadding), rep(tableSymbol, maxLength + 2), "\n", sep = "")
+  if (print_table_symbol == TRUE) {
+    cat(rep(table_symbol, maxLength + 2), "\n", sep = "")
   }
   
   # Print Header ------------------------------------------------------------
   # padding for header labels
-  cat(rep(spaceSymbol, tablePadding), sep = "")
-  
   for (col in 1:length(df)) {
     colSize <- maxColWidth[col]
     # determine padding
     cellSize <- nchar(nme[col])
     padding <- colSize - cellSize
-    if (center == T) {
-      startPadding <- floor(padding / 2)
-      endPadding <- padding - startPadding
-    } else {
-      startPadding <- padding
-      endPadding <- 0
-    }
-    cat(rep(spaceSymbol, startPadding), nme[[col]], rep(spaceSymbol, endPadding), divider, sep = "")
+    startPadding <- padding
+    endPadding <- 0
+    cat(rep(space_symbol, startPadding), nme[[col]], rep(space_symbol, endPadding), sep = "")
   }
   cat("\n")
   
-  if (printHeaderRow == T) {
-    cat(rep(spaceSymbol, tablePadding), rep(upperSymbol, maxLength + 2), "\n", sep = "")
+  if (print_header_divider==TRUE){
+  cat(rep(row_divider_symbol, maxLength + 2), "\n", sep = "")
   }
   
-  # Now print cell values
+  
+  
+  # Cell Values -------------------------------------------------------------
   for (row in 1:nrow(df)) {
-    # print break rows when requested
-    # determine if breakrow
-    if (row %in% breaks) {
-      cat(rep(spaceSymbol, tablePadding), rep(lowerSymbol, maxLength + 2), "\n", sep = "")
-    }
     
-    cat(rep(spaceSymbol, tablePadding), sep = "")
     for (col in 1:length(df)) {
       colSize <- maxColWidth[col]
       # determine padding
@@ -227,39 +202,32 @@ printIt <- function(df,
         cellSize <- nchar(df[row, col])
       }
       padding <- colSize - cellSize
-      cat(rep(spaceSymbol, padding), df[[row, col]], divider, sep = "")
+      cat(rep(space_symbol, padding), df[[row, col]], sep = "")
     }
     cat("\n")
   }
   
-  # print outer
   
-  if (printTotalRow == T) {
-    cat(rep(spaceSymbol, tablePadding), rep(lowerSymbol, maxLength + 2), "\n", sep = "")
-    
-    
-    cat(rep(spaceSymbol, tablePadding), sep = "")
+  # Total Row ---------------------------------------------------------------
+  
+  if (print_total_row == T) {
+    cat(rep(row_divider_symbol, maxLength + 2), "\n", sep = "")
     
     for (col in 1:length(df)) {
       colSize <- maxColWidth[col]
       # determine padding
       cellSize <- nchar(totals[col])
       padding <- colSize - cellSize
-      if (center == T) {
-        startPadding <- floor(padding / 2)
-        endPadding <- padding - startPadding
-      } else {
-        startPadding <- padding
-        endPadding <- 0
-      }
-      cat(rep(spaceSymbol, startPadding), totals[[col]], rep(spaceSymbol, endPadding), divider, sep = "")
+      startPadding <- padding
+      endPadding <- 0
+      cat(rep(space_symbol, startPadding), totals[[col]], rep(space_symbol, endPadding), sep = "")
     }
     cat("\n")
   }
   
   # Table Bottom ------------------------------------------------------------
-  if (printTableSymbol == T) {
-    cat(rep(spaceSymbol, tablePadding), rep(tableSymbol, maxLength + 2), "\n", sep = "")
+  if (print_table_symbol == T) {
+    cat(rep(table_symbol, maxLength + 2), "\n", sep = "")
   }
 }
 
@@ -269,8 +237,7 @@ printIt <- function(df,
 print.SimpleFreqs_freq <- function(x, ...) {
   names(x) <- c(attr(x, "title", exact = T), "Freq", "%", "Cum. Freq", "Cum. %")
   
-  breaks <- NA
-  printIt(x, breaks, formats = c("c", "n0", "n1", "n0", "n1"), printTotalRow = T, printTitleRow = T)
+  print_helper(x, formats = c("c", "n0", "n1", "n0", "n1"))
   
   missing <- attr(x, "MissingRemoved", exact = T)
   if (!is.null(missing)) {
