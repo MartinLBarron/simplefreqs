@@ -9,13 +9,13 @@ freq(df, var = NA, plot = T, sort = T, na.rm = F)
 \arguments{
 \item{df}{A data frame (optionally, you can pass a variable as the first argument.)}
 
-\item{var}{a variable in associated dataframe}
+\item{var}{a variable in associated data frame}
 
 \item{plot}{if TRUE (default) prints bar chart of results.  If FALSE, no chart.}
 
 \item{sort}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)}
+\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)}
 }
 \value{
 data frame containing frequencies.
@@ -26,10 +26,18 @@ Prints a frequency table for the specified variable.
 \details{
 This function prints a frequency table for the specified variable. While the 
 order to fit within the tidyverse, it takes as its first argument a dataframe
-and returns the frequency table as a dataframe.
+and returns the frequency table as a data frame. 
+
+options(SimpleFreqs.inner_table_padding = 5)
+options(SimpleFreqs.table_symbol = "#")
+options(SimpleFreqs.row_divider_symbol = "-")
+options(SimpleFreqs.print_table_symbol = F)
+options(SimpleFreqs.print_table_total_row = F)
+options(SimpleFreqs.print_table_metadata = T)
+options(SimpleFreqs.print_header_divider = F)
 }
 \examples{
-\dontrun{
+
 freq(iris, Species)
-}
+
 }

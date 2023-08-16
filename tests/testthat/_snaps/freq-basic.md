@@ -4,11 +4,9 @@
       freq(iris$Species, plot = F)
     Output
       
-      FREQUENCY: Species
+      Variable: Species
       Class: factor
-      Type: integer
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -25,11 +23,9 @@
       freq(iris, Species, plot = F)
     Output
       
-      FREQUENCY: Species
+      Variable: Species
       Class: factor
-      Type: integer
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -46,11 +42,9 @@
       freq(iris[["Species"]], plot = F)
     Output
       
-      FREQUENCY: Species
+      Variable: Species
       Class: factor
-      Type: integer
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
