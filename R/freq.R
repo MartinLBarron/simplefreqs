@@ -7,6 +7,14 @@
 #' This function prints a frequency table for the specified variable. While the 
 #' order to fit within the tidyverse, it takes as its first argument a dataframe
 #' and returns the frequency table as a data frame. 
+#' 
+#' options(SimpleFreqs.inner_table_padding = 5)
+#' options(SimpleFreqs.table_symbol = "#")
+#' options(SimpleFreqs.row_divider_symbol = "-")
+#' options(SimpleFreqs.print_table_symbol = F)
+#' options(SimpleFreqs.print_table_total_row = F)
+#' options(SimpleFreqs.print_table_metadata = T)
+#' options(SimpleFreqs.print_header_divider = F)
 #'
 #' @param df A data frame (optionally, you can pass a variable as the first argument.)
 #' 
