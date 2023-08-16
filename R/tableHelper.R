@@ -11,7 +11,7 @@ DetermineColumnWidth <- function(x) {
 }
 
 # Determine width of all columns ------------------------------------------
-DetermineColumnWidths <- function(df) {
+DetermineColumnWidths <- function(df, footer) {
   # Determine width of data
   data <- sapply(df, DetermineColumnWidth)
 
@@ -19,7 +19,11 @@ DetermineColumnWidths <- function(df) {
   header <- names(df)
   header <- sapply(header, DetermineColumnWidth)
 
+  #determine width of footer (total row)
+  footer <- sapply(footer, DetermineColumnWidth)
+  
   results <- ifelse(header > data, header, data)
+  results <- ifelse(results>footer, results, footer)
   return(results)
 }
 
@@ -75,21 +79,25 @@ print_helper <- function(df,
   windowWidth <- getOption("width")
 
   # Get number of columns and width
-  totalColumns <- length(df)
-  maxColWidth <- DetermineColumnWidths(df)
+  #totalColumns <- length(df)
+      footer <- c("Total", 
+                formatC(n, format = "f", digits = 0, big.mark = ","), 
+                "100%", 
+                formatC(n, format = "f", digits = 0, big.mark = ","), 
+                "100%")
+  maxColWidth <- DetermineColumnWidths(df, footer)
   # add margins to columns
   maxColWidth <- maxColWidth + inner_table_padding
-
-  # Determine number of columns that can fit on screen
-  maxColWidthRunning <- cumsum(maxColWidth)
-  maxColWidthRunning <- ifelse(maxColWidthRunning > windowWidth, F, T)
-  maxCols <- sum(maxColWidthRunning)
   maxLength <- sum(maxColWidth)
+  
+  # Determine number of columns that can fit on screen
+  # maxColWidthRunning <- cumsum(maxColWidth)
+  # maxColWidthRunning <- ifelse(maxColWidthRunning > windowWidth, F, T)
+  # maxCols <- sum(maxColWidthRunning)
+
 
   # get column names
   nme <- names(df)
-  # get column %s
-  totals <- c("Total", n, "100%", n, "100%")
 
   # Print Metadata ---------------------------------------------------------
   if (print_metadata == TRUE) {
@@ -150,15 +158,15 @@ print_helper <- function(df,
 
   if (print_total_row == T) {
     cat(rep(row_divider_symbol, maxLength + 2), "\n", sep = "")
-
+    
     for (col in 1:length(df)) {
       colSize <- maxColWidth[col]
       # determine padding
-      cellSize <- nchar(totals[col])
+      cellSize <- nchar(footer[col])
       padding <- colSize - cellSize
       startPadding <- padding
       endPadding <- 0
-      cat(rep(space_symbol, startPadding), totals[[col]], rep(space_symbol, endPadding), sep = "")
+      cat(rep(space_symbol, startPadding), footer[[col]], rep(space_symbol, endPadding), sep = "")
     }
     cat("\n")
   }
