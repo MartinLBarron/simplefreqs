@@ -4,11 +4,9 @@
       freq(iris, Species, plot = F)
     Output
       
-      FREQUENCY: Species
+      Variable: Species
       Class: factor
-      Type: integer
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -25,11 +23,9 @@
       freq(as.character(iris$Species), plot = F)
     Output
       
-      FREQUENCY: Species)
+      Variable: Species)
       Class: character
-      Type: character
-      Mode: character
-      Missing: 0
+      NA's: 0 (0.0%)
       ════════════════════════════════════════════════════════════
              Species)     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -46,11 +42,9 @@
       freq(iris, Sepal.Width, plot = F)
     Output
       
-      FREQUENCY: Sepal.Width
+      Variable: Sepal.Width
       Class: numeric
-      Type: double
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ═════════════════════════════════════════════════════════════
            Sepal.Width     Freq        %     Cum. Freq     Cum. %
       ─────────────────────────────────────────────────────────────
@@ -87,11 +81,9 @@
       freq(df$dt, plot = F)
     Output
       
-      FREQUENCY: dt
+      Variable: dt
       Class: Date
-      Type: double
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ═══════════════════════════════════════════════════════════
                    dt     Freq       %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────────
@@ -249,11 +241,9 @@
       freq(df$time, plot = F)
     Output
       
-      FREQUENCY: time
+      Variable: time
       Class: POSIXctPOSIXt
-      Type: double
-      Mode: numeric
-      Missing: 0
+      NA's: 0 (0.0%)
       ═════════════════════════════════════════════════════════════════════
                           time     Freq        %     Cum. Freq     Cum. %
       ─────────────────────────────────────────────────────────────────────

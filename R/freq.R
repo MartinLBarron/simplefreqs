@@ -100,9 +100,9 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   df<-  df  %>%
     mutate (temp = factor(!! enquo_x,exclude=NULL)) %>%
     count(.data$temp, sort=sort)  %>% #.data$temp used to quiet R check note
-    mutate(percentage = (n/sum(n))*100,
+    mutate(percentage = n/sum(n),
            cumulative = cumsum(n),
-           cumulative_percent = (.data$cumulative/sum(n))*100, #.data$cumulative used to quiet R check note
+           cumulative_percent = .data$cumulative/sum(n), #.data$cumulative used to quiet R check note
     )
   
   #sort factor for chart
@@ -112,7 +112,7 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
 
   
   #Format name in dataframe
-  names(df) <- c(quo_name(enquo_x), "Freq", "Percent", "CumFreq", "CumPercent")
+  names(df) <- c(quo_name(enquo_x), "freq", "proportion", "cum_freq", "cum_proportion")
   
   #Set results class
   class(df) <- c("SimpleFreqs_freq", "data.frame")
@@ -122,12 +122,10 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   } 
   attr(df, "missing") <- var_missing
   attr(df, "varClass") <- var_class
-  attr(df, "varType") <- var_type
-  attr(df, "varMode") <- var_mode
 
   #Plot results
   if (plot==T){
-    gg <- ggplot(data=df, aes_string(quo_name(enquo_x), "Freq"))
+    gg <- ggplot(data=df, aes_string(quo_name(enquo_x), "freq"))
     gg <- gg + geom_bar(stat="identity")
     gg <- gg + theme_minimal() + ggtitle (paste("Frequency:", quo_name(enquo_x))) + ylab("Count")
     gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -136,4 +134,3 @@ freq <- function(df, var=NA, plot=T, sort=T, na.rm=F){
   
   return(df)
 }
-
