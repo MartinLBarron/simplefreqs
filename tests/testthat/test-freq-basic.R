@@ -12,3 +12,11 @@ test_that("basic freq of tidy vector", {
 test_that("basic freq of indexing", {
   expect_snapshot(freq(iris[["Species"]], plot = F))
 })
+
+## Other things to test
+# na.rm = T
+# sorting
+# plotting results
+# as part of dplyr chain
+# as part of base chain
+
