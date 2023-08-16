@@ -94,7 +94,7 @@ print_helper <- function(df,
     cat("Class: ", attr(df, "varClass", exact = T), "\n", sep = "")
 
     if (!is.null(missingRemoved)) {
-      cat(paste0("NA's removed: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
+      cat(paste0("NA's (removed): ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
     } else {
       cat(paste0("NA's: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
     }
