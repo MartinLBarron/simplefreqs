@@ -15,6 +15,8 @@
 #' options(SimpleFreqs.print_table_total_row = F)
 #' options(SimpleFreqs.print_table_metadata = T)
 #' options(SimpleFreqs.print_header_divider = F)
+#' options(OutDec=".")
+#' options(SimpleFreqs.big_mark = ",")
 #'
 #' @param df A data frame (optionally, you can pass a variable as the first argument.)
 #' 

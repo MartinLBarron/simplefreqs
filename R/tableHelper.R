@@ -41,6 +41,7 @@ print_helper <- function(df,
                          print_metadata = getOption("SimpleFreqs.print_table_metadata", default = TRUE),
                          print_header_divider = getOption("SimpleFreqs.print_header_divider", default = TRUE)) {
   space_symbol <- " "
+  big_mark <- getOption("SimpleFreqs.big_mark", default = ",")
   # Get total N
   n <- sum(df$Freq)
 
@@ -68,10 +69,10 @@ print_helper <- function(df,
   # Convert Dataframe to all character
   # format as specified
   df[1] <- as.character(df[[1]])
-  df[2] <- formatC(df[[2]], format = "f", digits = 0, big.mark = ",")
-  df[3] <- formatC(df[[3]] * 100, format = "f", digits = 1, big.mark = " ")
-  df[4] <- formatC(df[[4]], format = "f", digits = 0, big.mark = ",")
-  df[5] <- formatC(df[[5]] * 100, format = "f", digits = 1, big.mark = " ")
+  df[2] <- formatC(df[[2]], format = "f", digits = 0, big.mark = big_mark)
+  df[3] <- formatC(df[[3]] * 100, format = "f", digits = 1)
+  df[4] <- formatC(df[[4]], format = "f", digits = 0, big.mark = big_mark)
+  df[5] <- formatC(df[[5]] * 100, format = "f", digits = 1)
 
 
 
@@ -81,9 +82,9 @@ print_helper <- function(df,
   # Get number of columns and width
   #totalColumns <- length(df)
       footer <- c("Total", 
-                formatC(n, format = "f", digits = 0, big.mark = ","), 
+                formatC(n, format = "f", digits = 0, big.mark = big_mark), 
                 "100%", 
-                formatC(n, format = "f", digits = 0, big.mark = ","), 
+                formatC(n, format = "f", digits = 0, big.mark = big_mark), 
                 "100%")
   maxColWidth <- DetermineColumnWidths(df, footer)
   # add margins to columns
@@ -106,10 +107,10 @@ print_helper <- function(df,
     
     missing <- attr(df, "MissingRemoved", exact = T)
     if (!is.null(missing)) {
-      cat(paste0("NA's removed: ", prettyNum(missing, big.mark = ","), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
+      cat(paste0("NA's removed: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
     } else {
       missing <- attr(df, "missing", exact = T)
-      cat(paste0("NA's: ", prettyNum(missing, big.mark = ","), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
+      cat(paste0("NA's: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
       
     }
   }
