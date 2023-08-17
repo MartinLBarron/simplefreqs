@@ -1,5 +1,18 @@
 # helpers and print functions for class
 
+
+# Check if vector is integer ----------------------------------------------
+checkIfInteger <- function(x) {
+  suppressWarnings(
+    test <- all.equal(x, as.integer(x), check.attributes = FALSE)
+  )
+  if (test == TRUE) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+
 # Determine Max width of column ------------------------------------------
 DetermineColumnWidth <- function(x) {
   # x <- as.character(x)
@@ -62,14 +75,22 @@ print_helper <- function(df,
   }
   naPercent <- (missing / norig) * 100
 
-
+  # Determine if freqs are all integer or not (due to weighting)
+  allInteger <- checkIfInteger(df[[2]])
 
   # Convert Dataframe to all character
   # format as specified
   df[1] <- as.character(df[[1]])
-  df[2] <- formatC(df[[2]], format = "f", digits = 0, big.mark = big_mark)
+  if (allInteger == TRUE) {
+    df[2] <- formatC(df[[2]], format = "f", digits = 0, big.mark = big_mark)
+    df[4] <- formatC(df[[4]], format = "f", digits = 0, big.mark = big_mark)
+  } else {
+    df[2] <- formatC(df[[2]], format = "f", digits = 1, big.mark = big_mark)
+    df[4] <- formatC(df[[4]], format = "f", digits = 1, big.mark = big_mark)
+  }
+
   df[3] <- formatC(df[[3]] * 100, format = "f", digits = 1)
-  df[4] <- formatC(df[[4]], format = "f", digits = 0, big.mark = big_mark)
+
   df[5] <- formatC(df[[5]] * 100, format = "f", digits = 1)
 
   # Format Footer
