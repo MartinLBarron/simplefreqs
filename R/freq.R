@@ -21,6 +21,7 @@
 #' - SimpleFreqs.print_table_metadata
 #' - SimpleFreqs.print_header_divider
 #' - SimpleFreqs.big_mark
+#' - SimpleFreqs.decimal_digits
 #'
 #' @param df A data frame (optionally, you can pass a variable as the first argument.)
 #'
@@ -127,15 +128,16 @@ freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt=NULL)
   }
   attr(df, "missing") <- var_missing
   attr(df, "varClass") <- var_class
+  attr(df, "plotted") <- plot
 
   # Plot results
-  if (plot == TRUE) {
-    gg <- ggplot(data = df, aes_string(quo_name(enquo_x), "freq"))
-    gg <- gg + geom_bar(stat = "identity")
-    gg <- gg + theme_minimal() + ggtitle(paste("Frequency:", quo_name(enquo_x))) + ylab("Count")
-    gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-    print(gg)
-  }
+  # if (plot == TRUE) {
+  #   gg <- ggplot(data = df, aes_string(quo_name(enquo_x), "freq"))
+  #   gg <- gg + geom_bar(stat = "identity")
+  #   gg <- gg + theme_minimal() + ggtitle(paste("Frequency:", quo_name(enquo_x))) + ylab("Count")
+  #   gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  #   print(gg)
+  # }
 
   return(df)
 }
