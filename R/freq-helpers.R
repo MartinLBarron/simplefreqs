@@ -54,6 +54,7 @@ print_helper <- function(df,
   space_symbol <- " "
   big_mark <- getOption("SimpleFreqs.big_mark", default = ",")
   n <- sum(df$Freq)
+  decimal_digits <- getOption("SimpleFreqs.decimal_digits", default=1)
 
   # Replace NA with <NA> for printing
   # We check if <NA> alrady exist in data fram and issues warning if it does
@@ -89,9 +90,9 @@ print_helper <- function(df,
     df[4] <- formatC(df[[4]], format = "f", digits = 1, big.mark = big_mark)
   }
 
-  df[3] <- formatC(df[[3]] * 100, format = "f", digits = 1)
+  df[3] <- formatC(df[[3]] * 100, format = "f", digits = decimal_digits)
 
-  df[5] <- formatC(df[[5]] * 100, format = "f", digits = 1)
+  df[5] <- formatC(df[[5]] * 100, format = "f", digits = decimal_digits)
 
   # Format Footer
   footer <- c(
@@ -115,9 +116,9 @@ print_helper <- function(df,
     cat("Class: ", attr(df, "varClass", exact = T), "\n", sep = "")
 
     if (!is.null(missingRemoved)) {
-      cat(paste0("NA's (removed): ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
+      cat(paste0("NA's (removed): ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)\n"))
     } else {
-      cat(paste0("NA's: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = 1, format = "f"), "%)\n"))
+      cat(paste0("NA's: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)\n"))
     }
   }
   # Print Table top ---------------------------------------------------------
@@ -189,4 +190,15 @@ print.SimpleFreqs_freq <- function(x, ...) {
 
   # Print table
   print_helper(x)
+
+  # Plot results
+  plot <- attr(x, "plotted", exact = T)
+  if (plot == TRUE) {
+    nme <- attr(x, "title", exact = T)
+    gg <- ggplot(data = x, aes_string(nme, "Freq"))
+    gg <- gg + geom_bar(stat = "identity")
+    gg <- gg + theme_minimal() + ggtitle(paste("Frequency:", nme)) + ylab("Count")
+    gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    print(gg)
+  }
 }
