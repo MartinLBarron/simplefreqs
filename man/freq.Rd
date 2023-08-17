@@ -4,7 +4,7 @@
 \alias{freq}
 \title{Construct frequency table}
 \usage{
-freq(df, var = NA, plot = T, sort = T, na.rm = F)
+freq(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt = NULL)
 }
 \arguments{
 \item{df}{A data frame (optionally, you can pass a variable as the first argument.)}
@@ -16,6 +16,8 @@ freq(df, var = NA, plot = T, sort = T, na.rm = F)
 \item{sort}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
 \item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)}
+
+\item{wt}{a variable representing weights}
 }
 \value{
 data frame containing frequencies.
@@ -24,17 +26,23 @@ data frame containing frequencies.
 Prints a frequency table for the specified variable.
 }
 \details{
-This function prints a frequency table for the specified variable. While the 
-order to fit within the tidyverse, it takes as its first argument a dataframe
-and returns the frequency table as a data frame. 
+This function constructs a frequency table for the specified variable. It expects
+a data frame as the first argument and an (unquoted) variable as the second argument.
+It will thus fit into a tidyverse pipeline.  Alternatively, for convienience, a
+vector can be passed as first argument and the var (second) argument left blank.
 
-options(SimpleFreqs.inner_table_padding = 5)
-options(SimpleFreqs.table_symbol = "#")
-options(SimpleFreqs.row_divider_symbol = "-")
-options(SimpleFreqs.print_table_symbol = F)
-options(SimpleFreqs.print_table_total_row = F)
-options(SimpleFreqs.print_table_metadata = T)
-options(SimpleFreqs.print_header_divider = F)
+The console printed table is highly customizable using session, project, or global
+options.  The following options are currently implemented and can be set by calling
+`options()` either interactively or by including in your .Rprofile.
+
+- SimpleFreqs.inner_table_padding
+- SimpleFreqs.table_symbol
+- SimpleFreqs.row_divider_symbol
+- SimpleFreqs.print_table_symbol
+- SimpleFreqs.print_table_total_row
+- SimpleFreqs.print_table_metadata
+- SimpleFreqs.print_header_divider
+- SimpleFreqs.big_mark
 }
 \examples{
 

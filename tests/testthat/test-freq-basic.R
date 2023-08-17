@@ -19,7 +19,5 @@ test_that("basic freq of indexing", {
 # plotting results
 # as part of dplyr chain
 # as part of base chain
-# what is order if unordered
-# what is order if an ordered variable
-# what is order for a factor
+
 

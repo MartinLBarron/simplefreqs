@@ -32,6 +32,8 @@
 #'
 #' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)
 #'
+#' @param wt a variable representing weights
+#' 
 #' @return  data frame containing frequencies.
 #'
 #' @examples
@@ -44,7 +46,7 @@
 #' @export
 #'
 
-freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE) {
+freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt=NULL) {
   # Check if df is vector or data frame.  Stop if not
   if (!is.atomic(df) & !is.data.frame(df)) {
     stop("The first argument must be a data frame or vector")
@@ -82,6 +84,8 @@ freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE) {
   # Capture input variable for non-standard evaluation
   enquo_x <- rlang::enquo(var)
 
+  enquo_wt <- rlang::enquo(wt)
+  
   # Capture input variable data for later printing
   var_class <- class(df[[rlang::get_expr(enquo_x)]])
 
@@ -99,7 +103,7 @@ freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE) {
   # The main meat of the function, calculate freqs here
   df <- df %>%
     mutate(temp = factor(!!enquo_x, exclude = NULL)) %>%
-    count(.data$temp, sort = sort) %>% # .data$temp used to quiet R check note
+    count(.data$temp, sort = sort, wt=!! enquo_wt) %>% # .data$temp used to quiet R check note
     mutate(
       percentage = n / sum(n),
       cumulative = cumsum(n),
