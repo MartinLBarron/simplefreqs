@@ -1,7 +1,7 @@
 # basic freq of vector
 
     Code
-      freq(iris$Species, plot = F)
+      freq(iris$Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -20,7 +20,7 @@
 # basic freq of tidy vector
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -39,7 +39,7 @@
 # basic freq of indexing
 
     Code
-      freq(iris[["Species"]], plot = F)
+      freq(iris[["Species"]], plot = F, markdown = F)
     Output
       
       Variable: Species

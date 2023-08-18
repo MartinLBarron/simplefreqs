@@ -1,7 +1,7 @@
 # order when fed a raw character is alphabetic
 
     Code
-      freq(df, x, sort = F, plot = F)
+      freq(df, x, sort = F, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -21,7 +21,7 @@
 # order when fed a raw character is alphabetic, with NA at end
 
     Code
-      freq(df, x, sort = F, plot = F)
+      freq(df, x, sort = F, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -42,7 +42,7 @@
 # order when fed a unspecified factor is alphabetic, with NA at end
 
     Code
-      freq(df, x, sort = F, plot = F)
+      freq(df, x, sort = F, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -63,7 +63,7 @@
 # if factor has other ordering freq will use that
 
     Code
-      freq(df, x, sort = F, plot = F)
+      freq(df, x, sort = F, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -84,7 +84,7 @@
 # an ordered variable is also retained
 
     Code
-      freq(df, x, sort = F, plot = F)
+      freq(df, x, sort = F, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -105,7 +105,7 @@
 # an ordered variable is overrode by sort
 
     Code
-      freq(df, x, sort = T, plot = F)
+      freq(df, x, sort = T, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -126,7 +126,7 @@
 # a numeric is also sorted
 
     Code
-      freq(df, x, sort = F, plot = F)
+      freq(df, x, sort = F, plot = F, markdown = F)
     Output
       
       Variable: x

@@ -28,12 +28,14 @@
 #' @param var a variable in associated data frame
 #'
 #' @param plot if TRUE (default) prints bar chart of results.  If FALSE, no chart.
-#'
+#' 
 #' @param sort If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
 #'
-#' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)
+#' @param markdown if false, formats table for Rmarkdown/Quarto inclusion.  
 #'
 #' @param wt a variable representing weights
+#'
+#' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)
 #' 
 #' @return  data frame containing frequencies.
 #'
@@ -43,11 +45,12 @@
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import gt
 #'
 #' @export
 #'
 
-freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt=NULL) {
+freq <- function(df, var = NA, plot = TRUE, sort = TRUE, markdown = !interactive() , wt=NULL, na.rm = FALSE) {
   # Check if df is vector or data frame.  Stop if not
   if (!is.atomic(df) & !is.data.frame(df)) {
     stop("The first argument must be a data frame or vector")
@@ -129,15 +132,8 @@ freq <- function(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt=NULL)
   attr(df, "missing") <- var_missing
   attr(df, "varClass") <- var_class
   attr(df, "plotted") <- plot
+  attr(df, "markdown") <- markdown
 
-  # Plot results
-  # if (plot == TRUE) {
-  #   gg <- ggplot(data = df, aes_string(quo_name(enquo_x), "freq"))
-  #   gg <- gg + geom_bar(stat = "identity")
-  #   gg <- gg + theme_minimal() + ggtitle(paste("Frequency:", quo_name(enquo_x))) + ylab("Count")
-  #   gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-  #   print(gg)
-  # }
 
   return(df)
 }

@@ -4,7 +4,15 @@
 \alias{freq}
 \title{Construct frequency table}
 \usage{
-freq(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt = NULL)
+freq(
+  df,
+  var = NA,
+  plot = TRUE,
+  sort = TRUE,
+  markdown = !interactive(),
+  wt = NULL,
+  na.rm = FALSE
+)
 }
 \arguments{
 \item{df}{A data frame (optionally, you can pass a variable as the first argument.)}
@@ -15,9 +23,11 @@ freq(df, var = NA, plot = TRUE, sort = TRUE, na.rm = FALSE, wt = NULL)
 
 \item{sort}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)}
+\item{markdown}{if false, formats table for Rmarkdown/Quarto inclusion.}
 
 \item{wt}{a variable representing weights}
+
+\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)}
 }
 \value{
 data frame containing frequencies.
@@ -43,6 +53,7 @@ options.  The following options are currently implemented and can be set by call
 - SimpleFreqs.print_table_metadata
 - SimpleFreqs.print_header_divider
 - SimpleFreqs.big_mark
+- SimpleFreqs.decimal_digits
 }
 \examples{
 

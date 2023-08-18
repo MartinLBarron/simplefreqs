@@ -1,7 +1,7 @@
 # Works with inner_table_padding
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -20,7 +20,7 @@
 # Works with table_symbol
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -39,7 +39,7 @@
 # Works with row_divider_symbol
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -58,7 +58,7 @@
 # Works with print_table_symbol
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -75,7 +75,7 @@
 # Works with print_table_total_row
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -92,7 +92,7 @@
 # Works with print_table_metadata
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
@@ -107,7 +107,7 @@
 # Works with print_header_divider
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species

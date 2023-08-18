@@ -1,7 +1,7 @@
 # NA Remove works
 
     Code
-      freq(df, x, na.rm = T, plot = F)
+      freq(df, x, na.rm = T, plot = F, markdown = F)
     Output
       
       Variable: x
