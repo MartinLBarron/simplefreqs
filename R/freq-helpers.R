@@ -216,7 +216,7 @@ print_markdown_helper <- function(df) {
   x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
     fns = list (Total = ~ sum(.)),
     fmt = list(
-        ~ fmt_number(., columns = c("Freq"), decimals=0, suffixing = TRUE),
+        ~ fmt_number(., columns = c("Freq"), decimals=0),
         ~ fmt_percent(., columns = c("%"), decimals=0)
     )
   )
