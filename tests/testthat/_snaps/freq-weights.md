@@ -1,7 +1,7 @@
 # basic weighted results
 
     Code
-      freq(df, x, wt = wt, plot = F)
+      freq(df, x, wt = wt, plot = F, markdown = F)
     Output
       
       Variable: x

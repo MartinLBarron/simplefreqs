@@ -1,7 +1,7 @@
 # Works with factors
 
     Code
-      freq(iris, Species, plot = F)
+      freq(iris, Species, plot = F, markdown = F)
     Output
       
       Variable: Species
@@ -20,7 +20,7 @@
 # Works with Character
 
     Code
-      freq(as.character(iris$Species), plot = F)
+      freq(as.character(iris$Species), plot = F, markdown = F)
     Output
       
       Variable: Species)
@@ -39,7 +39,7 @@
 # Works with character2
 
     Code
-      freq(df, x, plot = F)
+      freq(df, x, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -60,7 +60,7 @@
 # Works with Numeric
 
     Code
-      freq(iris, Sepal.Width, plot = F)
+      freq(iris, Sepal.Width, plot = F, markdown = F)
     Output
       
       Variable: Sepal.Width
@@ -99,7 +99,7 @@
 # Works with numeric2
 
     Code
-      freq(df, x, plot = F)
+      freq(df, x, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -119,7 +119,7 @@
 # Works with Dates
 
     Code
-      freq(df$dt, plot = F)
+      freq(df$dt, plot = F, markdown = F)
     Output
       
       Variable: dt
@@ -279,7 +279,7 @@
 # Works with dates2
 
     Code
-      freq(df, x, plot = F)
+      freq(df, x, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -298,7 +298,7 @@
 # Works with Times
 
     Code
-      freq(df$time, plot = F)
+      freq(df$time, plot = F, markdown = F)
     Output
       
       Variable: time
@@ -318,7 +318,7 @@
 # Works with POSIXct
 
     Code
-      freq(df, x, plot = F)
+      freq(df, x, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -337,7 +337,7 @@
 # Works with logical
 
     Code
-      freq(x, plot = F)
+      freq(x, plot = F, markdown = F)
     Output
       
       Variable: x
@@ -355,7 +355,7 @@
 # Works with complex
 
     Code
-      freq(df, x, plot = F)
+      freq(df, x, plot = F, markdown = F)
     Output
       
       Variable: x

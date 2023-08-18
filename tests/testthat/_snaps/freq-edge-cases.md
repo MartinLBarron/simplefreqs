@@ -1,7 +1,7 @@
 # works if padding set small and total row is large
 
     Code
-      freq(storms, day, plot = F)
+      freq(storms, day, plot = F, markdown = F)
     Output
       
       Variable: day

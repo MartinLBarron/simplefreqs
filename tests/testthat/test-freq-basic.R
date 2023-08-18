@@ -2,15 +2,15 @@
 # core formats ------------------------------------------------------------
 
 test_that("basic freq of vector", {
-  expect_snapshot(freq(iris$Species, plot = F))
+  expect_snapshot(freq(iris$Species, plot = F, markdown=F))
 })
 
 test_that("basic freq of tidy vector", {
-  expect_snapshot(freq(iris, Species, plot = F))
+  expect_snapshot(freq(iris, Species, plot = F, markdown=F))
 })
 
 test_that("basic freq of indexing", {
-  expect_snapshot(freq(iris[["Species"]], plot = F))
+  expect_snapshot(freq(iris[["Species"]], plot = F, markdown=F))
 })
 
 ## Other things to test
