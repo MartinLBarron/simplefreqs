@@ -41,7 +41,7 @@
 #'
 #' @examples
 #'
-#' freq(iris, Species)
+#' freq(iris, Species, markdown = FALSE)
 #'
 #' @import dplyr
 #' @import ggplot2

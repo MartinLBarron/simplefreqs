@@ -57,6 +57,6 @@ options.  The following options are currently implemented and can be set by call
 }
 \examples{
 
-freq(iris, Species)
+freq(iris, Species, markdown = FALSE)
 
 }
