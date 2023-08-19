@@ -1,3 +1,4 @@
-# SimpleFreqs 0.3.0
+# SimpleFreqs 0.5.0
+#### 2023-08-19
 
-* Initial CRAN submission.
+* Preparing for CRAN submission.

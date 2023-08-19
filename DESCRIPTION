@@ -1,7 +1,7 @@
 Package: SimpleFreqs
 Type: Package
 Title: Simple Frequency Table 
-Version: 0.3.0
+Version: 0.5.0
 Author: Martin Barron
 Maintainer: Martin Barron <martin@barron.cc>
 Description: This package provides a clean and easy to use frequency table.
