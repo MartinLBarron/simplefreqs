@@ -263,7 +263,7 @@ print_markdown_helper <- function(df) {
       locations = cells_stub()
   )
   
-    print(x)
+    return(x)
 }
 
 
@@ -280,7 +280,9 @@ print.SimpleFreqs_freq <- function(x, ...) {
   if (markdown == FALSE) {
     print_console_helper(x)
   } else {
-    print_markdown_helper(x)
+    y<- print_markdown_helper(x)
+    print(class(y))
+    return(gt:::knit_print.gt_tbl(y))
   }
   
   # Plot results
