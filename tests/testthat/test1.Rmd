@@ -1,0 +1,16 @@
+---
+title: "Untitled2"
+author: "Martin barron"
+date: "2023-08-18"
+output: html_document
+
+---
+  
+## straight (works)
+
+```{r, results="asis"}
+library(SimpleFreqs)
+
+freq(iris, Species, plot=F, markdown = T)
+
+```

@@ -8,4 +8,11 @@
 \description{
 This package provides a clean and easy to use frequency table. It works both on the console and in Knitted (rmarkdown and Quarto) documents.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://martinlbarron.github.io/SimpleFreqs/}
+}
+
+}
 \keyword{internal}
