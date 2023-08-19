@@ -9,7 +9,7 @@ output: word_document
 ## straight (works)
 
 ```{r, results="asis"}
-library(SimpleFreqs)
+library(simplefreqs)
 
 freq(iris, Species, plot=F, markdown = T)
 

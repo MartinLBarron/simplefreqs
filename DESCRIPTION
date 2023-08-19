@@ -1,11 +1,12 @@
-Package: SimpleFreqs
+Package: simplefreqs
 Type: Package
-Title: Simple Frequency Table 
+Title: Simple Frequency Tables 
 Version: 0.5.0
-Author: Martin Barron
+Authors@R: person("Martin", "Barron", email = "martin@barron.cc",
+  role = c("aut", "cre"))
 Maintainer: Martin Barron <martin@barron.cc>
-Description: This package provides a clean and easy to use frequency table.
-    It works both on the console and in Knitted (rmarkdown and Quarto) documents.
+Description: Produce easy to read frequency tables. It works both on the console 
+    and in Knitted documents.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:
@@ -23,4 +24,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-URL: https://martinlbarron.github.io/SimpleFreqs/
+URL: https://martinlbarron.github.io/simplefreqs/, https://github.com/MartinLBarron/simplefreqs
+BugReports: https://github.com/MartinLBarron/simplefreqs/issues

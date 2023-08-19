@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(SimpleFreqs)
+library(simplefreqs)
 ```
 
 ## printing
@@ -81,7 +81,7 @@ freq(iris[["Species"]])
 ```
 
 Results need not be printed at all. Instead, the results can be assigned to a 
-variable.  This will have a class of both "SimpleFreqs_freq" and "data.frame".
+variable.  This will have a class of both "simplefreqs_freq" and "data.frame".
 
 ```{r assigning}
 df <- freq(iris, Species)
@@ -89,7 +89,7 @@ df <- freq(iris, Species)
 class(df)
 ```
 
-This object will continue to print as a SimpleFreqs_freqs.
+This object will continue to print as a simplefreqs_freqs.
 
 ```{r assigning2}
 df <- freq(iris, Species)
@@ -97,7 +97,7 @@ df <- freq(iris, Species)
 df
 ```
 
-You can remove the "SimpleFreqs_freq" class if needed and the object will print 
+You can remove the "simplefreqs_freq" class if needed and the object will print 
 as a regular data.frame.
 
 ```{r assigning3}
@@ -161,7 +161,7 @@ df
 
 #markdown
 
-SimpleFreqs::freq tries to intuit if you are working interactively on the console 
+simplefreqs::freq tries to intuit if you are working interactively on the console 
 or are knitting a document. In some cases, you may need to directly specify the 
 type of output you want to display using the `markdown=` parameter.  Set to `FALSE`
 when you wish to print for the console.

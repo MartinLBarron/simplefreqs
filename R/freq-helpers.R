@@ -43,18 +43,18 @@ DetermineColumnWidths <- function(df, footer) {
 
 # Generic function to lay out table as desired ---------------------------------
 print_console_helper <- function(df,
-                                 inner_table_padding = getOption("SimpleFreqs.inner_table_padding", default = 5),
-                                 row_divider_symbol = getOption("SimpleFreqs.row_divider_symbol", default = "\u2500"),
-                                 table_symbol = getOption("SimpleFreqs.table_symbol", default = "\u2550"),
-                                 print_table_symbol = getOption("SimpleFreqs.print_table_symbol", default = TRUE),
-                                 print_total_row = getOption("SimpleFreqs.print_table_total_row", default = TRUE),
-                                 print_metadata = getOption("SimpleFreqs.print_table_metadata", default = TRUE),
-                                 print_header_divider = getOption("SimpleFreqs.print_header_divider", default = TRUE)) {
+                                 inner_table_padding = getOption("simplefreqs.inner_table_padding", default = 5),
+                                 row_divider_symbol = getOption("simplefreqs.row_divider_symbol", default = "\u2500"),
+                                 table_symbol = getOption("simplefreqs.table_symbol", default = "\u2550"),
+                                 print_table_symbol = getOption("simplefreqs.print_table_symbol", default = TRUE),
+                                 print_total_row = getOption("simplefreqs.print_table_total_row", default = TRUE),
+                                 print_metadata = getOption("simplefreqs.print_table_metadata", default = TRUE),
+                                 print_header_divider = getOption("simplefreqs.print_header_divider", default = TRUE)) {
   # Set Constants
   space_symbol <- " "
-  big_mark <- getOption("SimpleFreqs.big_mark", default = ",")
+  big_mark <- getOption("simplefreqs.big_mark", default = ",")
   n <- sum(df$Freq)
-  decimal_digits <- getOption("SimpleFreqs.decimal_digits", default = 1)
+  decimal_digits <- getOption("simplefreqs.decimal_digits", default = 1)
   
   # Replace NA with <NA> for printing
   # We check if <NA> alrady exist in data fram and issues warning if it does
@@ -66,8 +66,8 @@ print_console_helper <- function(df,
   levels(df[[1]]) <- lab
   
   
-  missing <- attr(df, "missing", exact = T)
-  missingRemoved <- attr(df, "missing_removed", exact = T)
+  missing <- attr(df, "na", exact = T)
+  missingRemoved <- attr(df, "na_removed", exact = T)
   
   if (!is.null(missingRemoved)) {
     norig <- sum(df$Freq) + missing
@@ -188,8 +188,8 @@ print_markdown_helper <- function(df) {
   # Set constants
   nme <- attr(df, "title", exact = T)
   decimal_mark <- getOption("OutDec", default = ".")
-  decimal_digits <- getOption("SimpleFreqs.decimal_digits", default = 1)
-  big_mark <- getOption("SimpleFreqs.big_mark", default = ",")
+  decimal_digits <- getOption("simplefreqs.decimal_digits", default = 1)
+  big_mark <- getOption("simplefreqs.big_mark", default = ",")
   
   # Determine if freqs are all integer or not (due to weighting)
   allInteger <- checkIfInteger(df[[2]])
@@ -270,7 +270,7 @@ print_markdown_helper <- function(df) {
 
 #' @export
 
-print.SimpleFreqs_freq <- function(x, ...) {
+print.simplefreqs_freq <- function(x, ...) {
   # Rename columns for printing
   names(x) <- c(attr(x, "title", exact = T), "Freq", "%", "Cum. Freq", "Cum. %")
   

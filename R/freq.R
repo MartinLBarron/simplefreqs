@@ -13,15 +13,15 @@
 #' options.  The following options are currently implemented and can be set by calling
 #' `options()` either interactively or by including in your .Rprofile.
 #'
-#' - SimpleFreqs.inner_table_padding
-#' - SimpleFreqs.table_symbol
-#' - SimpleFreqs.row_divider_symbol
-#' - SimpleFreqs.print_table_symbol
-#' - SimpleFreqs.print_table_total_row
-#' - SimpleFreqs.print_table_metadata
-#' - SimpleFreqs.print_header_divider
-#' - SimpleFreqs.big_mark
-#' - SimpleFreqs.decimal_digits
+#' - simplefreqs.inner_table_padding
+#' - simplefreqs.table_symbol
+#' - simplefreqs.row_divider_symbol
+#' - simplefreqs.print_table_symbol
+#' - simplefreqs.print_table_total_row
+#' - simplefreqs.print_table_metadata
+#' - simplefreqs.print_header_divider
+#' - simplefreqs.big_mark
+#' - simplefreqs.decimal_digits
 #'
 #' @param df A data frame (optionally, you can pass a variable as the first argument.)
 #'
@@ -124,13 +124,13 @@ freq <- function(df, var = NA, plot = TRUE, sort = TRUE, markdown = !interactive
   names(df) <- c(quo_name(enquo_x), "freq", "proportion", "cum_freq", "cum_proportion")
 
   # Set results class and attributes
-  class(df) <- c("SimpleFreqs_freq", "data.frame")
+  class(df) <- c("simplefreqs_freq", "data.frame")
   attr(df, "title") <- quo_name(enquo_x)
   if (na.rm == TRUE) {
-    attr(df, "missing") <- naCount1
-    attr(df, "missing_removed") <- TRUE
+    attr(df, "na") <- naCount1
+    attr(df, "na_removed") <- TRUE
   }
-  attr(df, "missing") <- var_missing
+  attr(df, "na") <- var_missing
   attr(df, "varClass") <- var_class
   attr(df, "plotted") <- plot
   attr(df, "markdown") <- markdown

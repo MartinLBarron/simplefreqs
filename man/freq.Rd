@@ -45,15 +45,15 @@ The console printed table is highly customizable using session, project, or glob
 options.  The following options are currently implemented and can be set by calling
 `options()` either interactively or by including in your .Rprofile.
 
-- SimpleFreqs.inner_table_padding
-- SimpleFreqs.table_symbol
-- SimpleFreqs.row_divider_symbol
-- SimpleFreqs.print_table_symbol
-- SimpleFreqs.print_table_total_row
-- SimpleFreqs.print_table_metadata
-- SimpleFreqs.print_header_divider
-- SimpleFreqs.big_mark
-- SimpleFreqs.decimal_digits
+- simplefreqs.inner_table_padding
+- simplefreqs.table_symbol
+- simplefreqs.row_divider_symbol
+- simplefreqs.print_table_symbol
+- simplefreqs.print_table_total_row
+- simplefreqs.print_table_metadata
+- simplefreqs.print_header_divider
+- simplefreqs.big_mark
+- simplefreqs.decimal_digits
 }
 \examples{
 

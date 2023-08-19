@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(SimpleFreqs)
+library(simplefreqs)
 
-test_check("SimpleFreqs")
+test_check("simplefreqs")
