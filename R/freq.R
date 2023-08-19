@@ -45,6 +45,7 @@
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import rlang
 #' @import gt
 #'
 #' @export

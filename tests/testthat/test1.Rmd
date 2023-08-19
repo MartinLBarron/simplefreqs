@@ -2,7 +2,7 @@
 title: "Untitled2"
 author: "Martin barron"
 date: "2023-08-18"
-output: html_document
+output: word_document
 
 ---
   

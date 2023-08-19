@@ -116,9 +116,9 @@ print_console_helper <- function(df,
     cat("Class: ", attr(df, "varClass", exact = T), "\n", sep = "")
     
     if (!is.null(missingRemoved)) {
-      cat(paste0("NA's (removed): ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)\n"))
+      cat(paste0("NAs (removed): ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)\n"))
     } else {
-      cat(paste0("NA's: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)\n"))
+      cat(paste0("NAs: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)\n"))
     }
   }
   # Print Table top ---------------------------------------------------------
@@ -281,7 +281,9 @@ print.SimpleFreqs_freq <- function(x, ...) {
     print_console_helper(x)
   } else {
     y<- print_markdown_helper(x)
-    return(gt:::knit_print.gt_tbl(y))
+    fun <- utils::getFromNamespace("knit_print.gt_tbl", "gt")
+    return(fun(y))
+    #return(gt:::knit_print.gt_tbl(y)) # ::: is not allowed on CRAN
   }
   
   # Plot results

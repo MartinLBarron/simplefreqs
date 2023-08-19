@@ -8,12 +8,18 @@ Description: This package provides a clean and easy to use frequency table.
     It works both on the console and in Knitted (rmarkdown and Quarto) documents.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Imports: dplyr, ggplot2, rlang, gt
+Depends:
+    R (>= 4.3)
+Imports: 
+    dplyr (>= 1.1), 
+    ggplot2 (>= 3.4), 
+    rlang (>= 1.1), 
+    gt(>= 0.9)
 LazyData: true
 RoxygenNote: 7.2.3
 Suggests: 
-    knitr,
-    rmarkdown,
+    knitr (>= 1.43),
+    rmarkdown (>= 2.23),
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
