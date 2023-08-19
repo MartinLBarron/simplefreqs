@@ -281,7 +281,6 @@ print.SimpleFreqs_freq <- function(x, ...) {
     print_console_helper(x)
   } else {
     y<- print_markdown_helper(x)
-    print(class(y))
     return(gt:::knit_print.gt_tbl(y))
   }
   
