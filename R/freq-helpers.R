@@ -266,7 +266,69 @@ print_markdown_helper <- function(df) {
     print(x)
 }
 
-
+print_kable_helper <- function(df){
+  
+  space_symbol <- " "
+  big_mark <- getOption("SimpleFreqs.big_mark", default = ",")
+  n <- sum(df$Freq)
+  decimal_digits <- getOption("SimpleFreqs.decimal_digits", default = 1)
+  
+  # Replace NA with <NA> for printing
+  # We check if <NA> alrady exist in data fram and issues warning if it does
+  lab <- levels(df[[1]])
+  
+  if ("<NA>" %in% lab) {
+    warning('the string "<NA>" was detected. This conflicts with the printed NA results')
+  }
+  lab[is.na(lab)] <- "<NA>"
+  levels(df[[1]]) <- lab
+  
+  
+  missing <- attr(df, "missing", exact = T)
+  missingRemoved <- attr(df, "missing_removed", exact = T)
+  
+  if (!is.null(missingRemoved)) {
+    norig <- sum(df$Freq) + missing
+  } else {
+    norig <- sum(df$Freq)
+  }
+  naPercent <- (missing / norig) * 100
+  
+  # Determine if freqs are all integer or not (due to weighting)
+  allInteger <- checkIfInteger(df[[2]])
+  
+  # Convert Dataframe to all character
+  # format as specified
+  df[1] <- as.character(df[[1]])
+  if (allInteger == TRUE) {
+    df[2] <- formatC(df[[2]], format = "f", digits = 0, big.mark = big_mark)
+    df[4] <- formatC(df[[4]], format = "f", digits = 0, big.mark = big_mark)
+  } else {
+    df[2] <- formatC(df[[2]], format = "f", digits = 1, big.mark = big_mark)
+    df[4] <- formatC(df[[4]], format = "f", digits = 1, big.mark = big_mark)
+  }
+  
+  df[3] <- formatC(df[[3]] * 100, format = "f", digits = decimal_digits)
+  
+  df[5] <- formatC(df[[5]] * 100, format = "f", digits = decimal_digits)
+  
+  
+  df[nrow(df)+1,] <- c("Total", n, "100%", n, "100%")
+  
+  tab <- knitr::kable(df,align = "rrrrr") 
+  
+  print(" table {
+    margin: auto;
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+  }
+  table thead th { border-bottom: 1px solid #ddd; }
+    th, td { padding: 5px; }
+    thead, tfoot, tr:nth-child(even) { background: #eee; }
+    \n\n")
+  print(tab)
+  
+}
 
 #' @export
 
@@ -280,7 +342,8 @@ print.SimpleFreqs_freq <- function(x, ...) {
   if (markdown == FALSE) {
     print_console_helper(x)
   } else {
-    print_markdown_helper(x)
+    #print_markdown_helper(x)
+    print_kable_helper(x)
   }
   
   # Plot results

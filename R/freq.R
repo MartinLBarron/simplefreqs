@@ -46,6 +46,7 @@
 #' @import dplyr
 #' @import ggplot2
 #' @import gt
+#' @import knitr
 #'
 #' @export
 #'
