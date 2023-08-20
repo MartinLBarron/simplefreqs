@@ -14,13 +14,21 @@
 #' `options()` either interactively or by including in your .Rprofile.
 #'
 #' - simplefreqs.inner_table_padding
+#' 
 #' - simplefreqs.table_symbol
+#' 
 #' - simplefreqs.row_divider_symbol
+#' 
 #' - simplefreqs.print_table_symbol
+#' 
 #' - simplefreqs.print_table_total_row
+#' 
 #' - simplefreqs.print_table_metadata
+#' 
 #' - simplefreqs.print_header_divider
+#' 
 #' - simplefreqs.big_mark
+#' 
 #' - simplefreqs.decimal_digits
 #'
 #' @param df A data frame (optionally, you can pass a variable as the first argument.)

@@ -46,13 +46,21 @@ options.  The following options are currently implemented and can be set by call
 `options()` either interactively or by including in your .Rprofile.
 
 - simplefreqs.inner_table_padding
+
 - simplefreqs.table_symbol
+
 - simplefreqs.row_divider_symbol
+
 - simplefreqs.print_table_symbol
+
 - simplefreqs.print_table_total_row
+
 - simplefreqs.print_table_metadata
+
 - simplefreqs.print_header_divider
+
 - simplefreqs.big_mark
+
 - simplefreqs.decimal_digits
 }
 \examples{

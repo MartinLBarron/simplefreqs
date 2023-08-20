@@ -18,10 +18,11 @@ knitr::opts_chunk$set(
 library(simplefreqs)
 ```
 
-## printing
-This package provides a simple way to produce frequency tables.  It is built to
-work both in the console and in knitted documents (i.e. in Rmarkdown or Quarto).
-It should correctly produce html, pdf, and word output.
+## Printing
+
+This package provides a easy to produce frequency tables.  It is built to
+print nicely both in the console and in knitted documents (i.e. in Rmarkdown or Quarto).
+It should produce attractive console, html, pdf, and word output.
 
 ### Console
 
@@ -29,114 +30,120 @@ It should correctly produce html, pdf, and word output.
 freq(iris, Species, markdown = F, plot = F)
 ```
 
-### html
+### HTML
 
 ```{r html}
 freq(iris, Species, markdown = T)
 ```
 
-### pdf
+### PDF
 
 ```{r pdf}
 freq(iris, Species, markdown = T)
 ```
 
-### word
+### Word
 
 ```{r word}
 freq(iris, Species, markdown = T)
 ```
 
-It is designed to be used as part of a tidyverse pipeline. 
+## Tidyverse
+
+It is designed to be fit into a piped/Tidyverse workflow. 
 
 ```{r tidyverse, message=F, error=F, warning=F}
 library(dplyr)
 ```
 
-Hence, the first parameter
-should be a data frame (or tibble) and the second parameter an unquoted variable from
-the first parameter.
+Thus, the first parameter should be a data.frame (or tibble) and the second 
+parameter an unquoted variable from the specified data.frame
 
 ```{r basic}
-freq(iris, Species)
+data(storms)
+freq(storms, status)
 ```
 
 or 
 
 ```{r basic2}
-iris |>
-  freq(Species)
+storms |>
+  freq(status)
 ```
 
-Alternatively, you can pass a vector as the first parameter and that will work too.
+## Other Accepted Inputs
+
+Alternatively, `freq` will detect if you pass a vector as the first parameter and
+produce a frequency table from it.
 
 ```{r vector}
-freq(iris$Species)
+freq(storms$category)
 ```
 
 or
 
 ```{r vector2}
-freq(iris[["Species"]])
+freq(storms[["category"]])
 ```
 
-Results need not be printed at all. Instead, the results can be assigned to a 
-variable.  This will have a class of both "simplefreqs_freq" and "data.frame".
+## Assigning Results
+
+Results need not be printed. Results, instead, can be assigned to a 
+variable.  The results will be a data.fram with a class of both "simplefreqs_freq" 
+and "data.frame".
 
 ```{r assigning}
-df <- freq(iris, Species)
-
+df <- freq(mtcars, cyl)
 class(df)
 ```
 
-This object will continue to print as a simplefreqs_freqs.
+This object will continue to print as a `simplefreqs_freqs`.
 
 ```{r assigning2}
-df <- freq(iris, Species)
-
+df <- freq(mtcars, cyl)
 df
 ```
 
-You can remove the "simplefreqs_freq" class if needed and the object will print 
+If needed, you can remove the "simplefreqs_freq" class and the object will print 
 as a regular data.frame.
 
 ```{r assigning3}
-df <- freq(iris, Species)
-
+df <- freq(mtcars, cyl)
 df <- as.data.frame(df)
-
 class(df)
 df
 ```
 
-# plots
+## Plots
 By default, a simple bar chart is produced alongside the frequency table.
 
 ```{r plots1}
 freq(iris, Species)
 ```
 
-Plots can be optionally supressed
+Plots can be supressed.
+
 ```{r plots2}
 freq(iris, Species, plot = FALSE)
 ```
 
-#sort
-By default, a results are sorted in descending order by the frequency of values
+## Sorting
+
+By default, results are sorted in descending order by frequency.
 
 ```{r sort1}
 freq(iris, Species, sort = TRUE, plot = FALSE)
 ```
 
-Alternatively, sorting can be turned off. In that case, results will be sorted by 
+Alternatively, sorting can be supressed. In that case, results will be sorted by 
 the variables labels. For character variables, it will be alphabetic, for factors
-it will be by the specified levels of the variable.
+it will in order of the levels.
 
 ```{r sort2}
 freq(iris, Species, sort = FALSE, plot = FALSE)
 ```
 
-# na.rm
+# NAs
 
 NAs are, by default, included and treated as any other level of the variable.
 
@@ -147,9 +154,9 @@ df <- iris |>
 df
 ```
 
-Alternatively, nas can be removed. In that case, NAs will not be printed but two
-relevent attribute will be set on the results. "missing" will include the number
-of missings removed and missing_removed will be set to TRUE.
+Alternatively, NAs can be removed. In that case, NAs will not be included in the 
+frequency table, but two relevent attribute will be set on the results. "na" will include the number
+of NAs removed and na_removed will be set to TRUE.
 
 ```{r nas2}
 
@@ -157,13 +164,15 @@ df <- iris |>
   mutate(Species=ifelse(row_number()<10,NA,Species)) |>
     freq(Species, na.rm = TRUE)
 df
+attr(df, "na", exact = TRUE)
+attr(df, "na_removed", exact = TRUE)
 ```
 
-#markdown
+## Markdown
 
-simplefreqs::freq tries to intuit if you are working interactively on the console 
+`simplefreqs::freq` tries to intuit if you are printing to the console 
 or are knitting a document. In some cases, you may need to directly specify the 
-type of output you want to display using the `markdown=` parameter.  Set to `FALSE`
+type of output you want to display using the `markdown` parameter.  Set to `FALSE`
 when you wish to print for the console.
 
 ```{r mkdown1}
@@ -176,13 +185,34 @@ Set to `markdown = TRUE` when you wish to include in a knitted document.
 freq(iris, Species, markdown = TRUE)
 ```
 
-#wt
+# Weighting
 Results can be optionally weighted by providing a vector of weight values.
 
 ```{r wt1}
-freq(iris, Species,wt=Sepal.Length)
+freq(iris, Species, wt = Sepal.Length)
 
 ```
+
+## Optional Formatting
+The printed results are highly customizable, both for console output and for HTML
+output (PDF and Word output is less customizable).  There are many available options
+that control how these tables print.  You can set these options per session (using 
+`options(simplefreqs.OPTION = VALUE)`) or by adding the similar lines to your 
+project or global .RProfile file.
+
+The exposed customization options are:
+
+- simplefreqs.inner_table_padding
+- simplefreqs.table_symbol
+- simplefreqs.row_divider_symbol
+- simplefreqs.print_table_symbol
+- simplefreqs.print_table_total_row
+- simplefreqs.print_table_metadata
+- simplefreqs.print_header_divider
+- simplefreqs.big_mark
+- simplefreqs.decimal_digits
+
+
 
 
 
