@@ -3,10 +3,6 @@
     Code
       freq(storms, day, plot = F, markdown = F)
     Output
-      
-      Variable: day
-      Class: integer
-      NAs: 0 (0.0%)
       ═════════════════════════════════════
          day   Freq    % Cum. Freq Cum. %
       ─────────────────────────────────────

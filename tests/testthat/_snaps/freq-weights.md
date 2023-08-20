@@ -3,10 +3,6 @@
     Code
       freq(df, x, wt = wt, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: character
-      NAs: 1 (2.2%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────

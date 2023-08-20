@@ -3,10 +3,6 @@
     Code
       freq(df, x, sort = F, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: character
-      NAs: 0 (0.0%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -23,10 +19,6 @@
     Code
       freq(df, x, sort = F, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: character
-      NAs: 1 (9.1%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -44,10 +36,6 @@
     Code
       freq(df, x, sort = F, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: factor
-      NAs: 1 (9.1%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -65,10 +53,6 @@
     Code
       freq(df, x, sort = F, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: factor
-      NAs: 1 (9.1%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -86,10 +70,6 @@
     Code
       freq(df, x, sort = F, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: factor
-      NAs: 1 (9.1%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -107,10 +87,6 @@
     Code
       freq(df, x, sort = T, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: factor
-      NAs: 1 (9.1%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -128,10 +104,6 @@
     Code
       freq(df, x, sort = F, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: factor
-      NAs: 1 (11.1%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────

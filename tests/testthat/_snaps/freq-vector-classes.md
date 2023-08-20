@@ -3,10 +3,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -22,10 +18,6 @@
     Code
       freq(as.character(iris$Species), plot = F, markdown = F)
     Output
-      
-      Variable: Species)
-      Class: character
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
              Species)     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -41,10 +33,6 @@
     Code
       freq(df, x, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: character
-      NAs: 1 (12.5%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -62,10 +50,6 @@
     Code
       freq(iris, Sepal.Width, plot = F, markdown = F)
     Output
-      
-      Variable: Sepal.Width
-      Class: numeric
-      NAs: 0 (0.0%)
       ═════════════════════════════════════════════════════════════
            Sepal.Width     Freq        %     Cum. Freq     Cum. %
       ─────────────────────────────────────────────────────────────
@@ -101,10 +85,6 @@
     Code
       freq(df, x, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: numeric
-      NAs: 0 (0.0%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -121,10 +101,6 @@
     Code
       freq(df$dt, plot = F, markdown = F)
     Output
-      
-      Variable: dt
-      Class: Date
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
                    dt     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -281,10 +257,6 @@
     Code
       freq(df, x, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: Date
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
                     x     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -300,10 +272,6 @@
     Code
       freq(df$time, plot = F, markdown = F)
     Output
-      
-      Variable: time
-      Class: POSIXctPOSIXt
-      NAs: 0 (0.0%)
       ═════════════════════════════════════════════════════════════════════
                           time     Freq        %     Cum. Freq     Cum. %
       ─────────────────────────────────────────────────────────────────────
@@ -320,10 +288,6 @@
     Code
       freq(df, x, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: POSIXctPOSIXt
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
                     x     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -339,10 +303,6 @@
     Code
       freq(x, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: logical
-      NAs: 0 (0.0%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────
@@ -357,10 +317,6 @@
     Code
       freq(df, x, plot = F, markdown = F)
     Output
-      
-      Variable: x
-      Class: complex
-      NAs: 0 (0.0%)
       ═══════════════════════════════════════════════════════
                x     Freq        %     Cum. Freq     Cum. %
       ───────────────────────────────────────────────────────

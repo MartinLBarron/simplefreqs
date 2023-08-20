@@ -3,10 +3,6 @@
     Code
       freq(iris$Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -22,10 +18,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -41,10 +33,6 @@
     Code
       freq(iris[["Species"]], plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────

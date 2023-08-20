@@ -3,10 +3,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ═════════════════════════════════════════════
            Species  Freq     %  Cum. Freq  Cum. %
       ─────────────────────────────────────────────
@@ -22,10 +18,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ############################################################
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -41,10 +33,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ############################################################
@@ -60,10 +48,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
                setosa       50     33.3            50       33.3
@@ -77,10 +61,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
       ────────────────────────────────────────────────────────────
@@ -109,10 +89,6 @@
     Code
       freq(iris, Species, plot = F, markdown = F)
     Output
-      
-      Variable: Species
-      Class: factor
-      NAs: 0 (0.0%)
       ════════════════════════════════════════════════════════════
               Species     Freq        %     Cum. Freq     Cum. %
                setosa       50     33.3            50       33.3
