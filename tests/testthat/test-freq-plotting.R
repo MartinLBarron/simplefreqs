@@ -7,7 +7,7 @@ test_that("basic plotting1", {
   save_png <- function(code, width = 400, height = 400) {
     path <- tempfile(fileext = ".png")
     png(path, width = width, height = height)
-    print(freq(iris, Species, markdown=F))
+    print(freq(iris, Species, markdown=F, plot = T))
     on.exit(dev.off())
     
     path
