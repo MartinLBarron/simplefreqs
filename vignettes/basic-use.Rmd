@@ -194,16 +194,23 @@ project or global .RProfile file.
 
 The exposed customization options are:
 
+### All output types
+- simplefreqs.big_mark
+- simplefreqs.decimal_digits
+- OutDec (base option controling decimal mark)
+- simplefreqs.print_table_metadata
+
+### Console output
+
+### markdown output
+
 - simplefreqs.inner_table_padding
 - simplefreqs.table_symbol
 - simplefreqs.row_divider_symbol
 - simplefreqs.print_table_symbol
 - simplefreqs.print_table_total_row
-- simplefreqs.print_table_metadata
 - simplefreqs.print_header_divider
-- simplefreqs.big_mark
-- simplefreqs.decimal_digits
-- OutDec (base option controling decimal mark)
+
 
 
 
