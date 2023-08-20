@@ -274,6 +274,16 @@ print.simplefreqs_freq <- function(x, ...) {
   # Rename columns for printing
   names(x) <- c(attr(x, "title", exact = T), "Freq", "%", "Cum. Freq", "Cum. %")
   
+  # Plot results
+  plot <- attr(x, "plotted", exact = T)
+  if (plot == TRUE) {
+    nme <- attr(x, "title", exact = T)
+    gg <- ggplot(data = x, aes(.data[[nme]], .data$Freq))
+    gg <- gg + geom_bar(stat = "identity")
+    gg <- gg + theme_minimal() + ggtitle(paste("Frequency:", nme)) + ylab("Count")
+    gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    print(gg)
+  }
   
   # Print table
   markdown <- attr(x, "markdown", exact = T)
@@ -286,14 +296,5 @@ print.simplefreqs_freq <- function(x, ...) {
     #return(gt:::knit_print.gt_tbl(y)) # ::: is not allowed on CRAN
   }
   
-  # Plot results
-  plot <- attr(x, "plotted", exact = T)
-  if (plot == TRUE) {
-    nme <- attr(x, "title", exact = T)
-    gg <- ggplot(data = x, aes(.data[[nme]], .data$Freq))
-    gg <- gg + geom_bar(stat = "identity")
-    gg <- gg + theme_minimal() + ggtitle(paste("Frequency:", nme)) + ylab("Count")
-    gg <- gg + theme(axis.text.x = element_text(angle = 90, hjust = 1))
-    print(gg)
-  }
+
 }
