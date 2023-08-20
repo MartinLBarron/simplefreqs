@@ -22,29 +22,22 @@ library(simplefreqs)
 
 This package provides a easy to produce frequency tables.  It is built to
 print nicely both in the console and in knitted documents (i.e. in Rmarkdown or Quarto).
-It should produce attractive console, html, pdf, and word output.
+It should produce attractive console, html, pdf, and (to a lesser extent) word output.
+We show basic console and HTML output below.
 
 ### Console
 
 ```{r console}
-freq(iris, Species, markdown = FALSE, plot = FALSE)
+freq(iris, Species, markdown = FALSE)
 ```
+
+If you have difficulty getting markdown to output correctly in your knitted document,
+try setting `results='asis'` in your Rmarkdown chunk options (or `output='asis'` 
+in your Quarto chunk options).
 
 ### HTML
 
-```{r html}
-freq(iris, Species, markdown = TRUE)
-```
-
-### PDF
-
-```{r pdf}
-freq(iris, Species, markdown = TRUE)
-```
-
-### Word
-
-```{r word}
+```{r html, results='asis'}
 freq(iris, Species, markdown = TRUE)
 ```
 
@@ -97,7 +90,7 @@ df <- freq(mtcars, cyl)
 class(df)
 ```
 
-This object will continue to print as a `simplefreqs_freqs`.
+This object will continue to print as a `simplefreqs_freqs` object.
 
 ```{r assigning2}
 df <- freq(mtcars, carb)
