@@ -7,7 +7,7 @@
 freq(
   df,
   var = NA,
-  plot = TRUE,
+  plot = interactive(),
   sort = TRUE,
   markdown = !interactive(),
   wt = NULL,
@@ -19,7 +19,7 @@ freq(
 
 \item{var}{a variable in associated data frame}
 
-\item{plot}{if TRUE (default) prints bar chart of results.  If FALSE, no chart.}
+\item{plot}{if TRUE prints bar chart of results.  Default is TRUE if interactive(), otherwise FALSE}
 
 \item{sort}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 

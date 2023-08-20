@@ -35,7 +35,7 @@
 #'
 #' @param var a variable in associated data frame
 #'
-#' @param plot if TRUE (default) prints bar chart of results.  If FALSE, no chart.
+#' @param plot if TRUE prints bar chart of results.  Default is TRUE if interactive(), otherwise FALSE
 #' 
 #' @param sort If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels
 #'
@@ -59,7 +59,7 @@
 #' @export
 #'
 
-freq <- function(df, var = NA, plot = TRUE, sort = TRUE, markdown = !interactive() , wt=NULL, na.rm = FALSE) {
+freq <- function(df, var = NA, plot = interactive(), sort = TRUE, markdown = !interactive(), wt=NULL, na.rm = FALSE) {
   # Check if df is vector or data frame.  Stop if not
   if (!is.atomic(df) & !is.data.frame(df)) {
     stop("The first argument must be a data frame or vector")
