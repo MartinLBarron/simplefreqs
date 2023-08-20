@@ -100,15 +100,15 @@ print_console_helper <- function(df,
     "Total",
     formatC(n, format = "f", digits = 0, big.mark = big_mark),
     "100%",
-    formatC(n, format = "f", digits = 0, big.mark = big_mark),
-    "100%")
+    "",
+    "")
   } else {
     footer <- c(
       "Total",
       formatC(n, format = "f", digits = decimal_digits, big.mark = big_mark),
       "100%",
-      formatC(n, format = "f", digits = decimal_digits, big.mark = big_mark),
-      "100%"
+      "",
+      ""
     )
   }
 

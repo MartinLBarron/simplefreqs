@@ -1,7 +1,7 @@
 Package: simplefreqs
 Type: Package
 Title: Simple Frequency Tables 
-Version: 0.5.1
+Version: 0.5.2
 Authors@R: person("Martin", "Barron", email = "martin@barron.cc",
   role = c("aut", "cre", "cph"))
 Description: Produces easy to read frequency tables. Function works both on the console 
