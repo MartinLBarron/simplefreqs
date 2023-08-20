@@ -258,6 +258,7 @@ print_markdown_helper <- function(df) {
     )
   }
   table.width = getOption("simplefreqs.table.width", default=50)
+  table.padding = getOption("simplefreqs.inner_table_padding", default=10)
   # Format table using options
   x <- tab_options(x, table.width = pct(table.width),
                    stub.border.style=NULL, 
@@ -274,9 +275,9 @@ print_markdown_helper <- function(df) {
                    grand_summary_row.border.style = "solid",
                    grand_summary_row.border.width = "2pt",
                    grand_summary_row.border.color = "darkgray",
-                   data_row.padding.horizontal = "10pt",
-                   grand_summary_row.padding.horizontal = "10pt",
-                   column_labels.padding.horizontal = "10pt"
+                   data_row.padding.horizontal = paste0(table.padding, "pt"),
+                   grand_summary_row.padding.horizontal = paste0(table.padding, "pt"),
+                   column_labels.padding.horizontal = paste0(table.padding, "pt")
   )
   
   # Further table formatting using styles
