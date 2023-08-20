@@ -5,8 +5,8 @@
 #'
 #' @details
 #' This function constructs a frequency table for the specified variable. It expects
-#' a data frame as the first argument and an (unquoted) variable as the second argument.
-#' It will thus fit into a tidyverse pipeline.  Alternatively, for convienience, a
+#' a data.frame as the first argument and an (unquoted) variable as the second argument.
+#' It will thus fit into a tidyverse pipeline.  Alternatively, for convenience, a
 #' vector can be passed as first argument and the var (second) argument left blank.
 #'
 #' The console printed table is highly customizable using session, project, or global
@@ -31,9 +31,9 @@
 #' 
 #' - simplefreqs.decimal_digits
 #'
-#' @param df A data frame (optionally, you can pass a variable as the first argument.)
+#' @param df A data.frame (optionally, you can pass a variable as the first argument.)
 #'
-#' @param var a variable in associated data frame
+#' @param var a variable in the associated data.frame
 #'
 #' @param plot if TRUE prints bar chart of results.  Default is TRUE if interactive(), otherwise FALSE
 #' 
@@ -45,7 +45,7 @@
 #'
 #' @param na.rm if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)
 #' 
-#' @return  data frame containing frequencies.
+#' @return  data.frame containing frequencies.
 #'
 #' @examples
 #'
@@ -60,14 +60,14 @@
 #'
 
 freq <- function(df, var = NA, plot = interactive(), sort = TRUE, markdown = !interactive(), wt=NULL, na.rm = FALSE) {
-  # Check if df is vector or data frame.  Stop if not
+  # Check if df is vector or data.frame.  Stop if not
   if (!is.atomic(df) & !is.data.frame(df)) {
-    stop("The first argument must be a data frame or vector")
+    stop("The first argument must be a data.frame or vector")
   }
 
-  # Check if data frame. If not, translate to data frame (with specified var name)
-  # This allows you to feed it either a vector or a data frame/variable combo.
-  # So after this we have a dataframe (df) and a var even if we were just
+  # Check if data.frame. If not, translate to data.frame (with specified var name)
+  # This allows you to feed it either a vector or a data.frame/variable combo.
+  # So after this we have a data.frame (df) and a var even if we were just
   # fed a vector
   if (!is.data.frame(df)) {
     dfname <- deparse(substitute(df))

@@ -1,12 +1,12 @@
 Package: simplefreqs
 Type: Package
 Title: Simple Frequency Tables 
-Version: 0.5.0
+Version: 0.5.1
 Authors@R: person("Martin", "Barron", email = "martin@barron.cc",
-  role = c("aut", "cre"))
-Maintainer: Martin Barron <martin@barron.cc>
-Description: Produce easy to read frequency tables. It works both on the console 
-    and in Knitted documents.
+  role = c("aut", "cre", "cph"))
+Description: Produces easy to read frequency tables. Function works both on the console 
+    and in Rmarkdown and Quarto documents. It provides sensible default values and
+    ability to easily produce accompanying graph, sort results, and weight frequencies.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Depends:

@@ -15,9 +15,9 @@ freq(
 )
 }
 \arguments{
-\item{df}{A data frame (optionally, you can pass a variable as the first argument.)}
+\item{df}{A data.frame (optionally, you can pass a variable as the first argument.)}
 
-\item{var}{a variable in associated data frame}
+\item{var}{a variable in the associated data.frame}
 
 \item{plot}{if TRUE prints bar chart of results.  Default is TRUE if interactive(), otherwise FALSE}
 
@@ -30,15 +30,15 @@ freq(
 \item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)}
 }
 \value{
-data frame containing frequencies.
+data.frame containing frequencies.
 }
 \description{
 Prints a frequency table for the specified variable.
 }
 \details{
 This function constructs a frequency table for the specified variable. It expects
-a data frame as the first argument and an (unquoted) variable as the second argument.
-It will thus fit into a tidyverse pipeline.  Alternatively, for convienience, a
+a data.frame as the first argument and an (unquoted) variable as the second argument.
+It will thus fit into a tidyverse pipeline.  Alternatively, for convenience, a
 vector can be passed as first argument and the var (second) argument left blank.
 
 The console printed table is highly customizable using session, project, or global
