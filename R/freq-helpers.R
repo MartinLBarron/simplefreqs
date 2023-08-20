@@ -57,7 +57,7 @@ print_console_helper <- function(df,
   decimal_digits <- getOption("simplefreqs.decimal_digits", default = 1)
   
   # Replace NA with <NA> for printing
-  # We check if <NA> alrady exist in data fram and issues warning if it does
+  # We check if <NA> alrady exist in data.frame and issues warning if it does
   lab <- levels(df[[1]])
   if ("<NA>" %in% lab) {
     warning('the string "<NA>" was detected. This conflicts with the printed NA results')
@@ -95,13 +95,23 @@ print_console_helper <- function(df,
   df[5] <- formatC(df[[5]] * 100, format = "f", digits = decimal_digits)
   
   # Format Footer
+  if (allInteger == TRUE){
   footer <- c(
     "Total",
     formatC(n, format = "f", digits = 0, big.mark = big_mark),
     "100%",
     formatC(n, format = "f", digits = 0, big.mark = big_mark),
-    "100%"
-  )
+    "100%")
+  } else {
+    footer <- c(
+      "Total",
+      formatC(n, format = "f", digits = decimal_digits, big.mark = big_mark),
+      "100%",
+      formatC(n, format = "f", digits = decimal_digits, big.mark = big_mark),
+      "100%"
+    )
+  }
+
   maxColWidth <- DetermineColumnWidths(df, footer)
   # add margins to columns
   maxColWidth <- maxColWidth + inner_table_padding
@@ -191,6 +201,15 @@ print_markdown_helper <- function(df) {
   decimal_digits <- getOption("simplefreqs.decimal_digits", default = 1)
   big_mark <- getOption("simplefreqs.big_mark", default = ",")
   
+  # Replace NA with <NA> for printing
+  # We check if <NA> alrady exist in data.frame and issues warning if it does
+  lab <- levels(df[[1]])
+  if ("<NA>" %in% lab) {
+    warning('the string "<NA>" was detected. This conflicts with the printed NA results')
+  }
+  lab[is.na(lab)] <- "<NA>"
+  levels(df[[1]]) <- lab
+  
   # Determine if freqs are all integer or not (due to weighting)
   allInteger <- checkIfInteger(df[[2]])
   
@@ -198,11 +217,11 @@ print_markdown_helper <- function(df) {
   x <- df %>%
     gt(rowname_col = nme) %>%
     tab_stubhead(label = nme) 
-    
+  
   # Align columns
   x <- cols_align(x, align = "right", columns = c(1)) 
   
-  # Format freq rows as integers if all integers
+  # Format freq columns as integers if all integers
   if (allInteger == TRUE) {
     x <- fmt_number(x, columns = c(2, 4), sep_mark = big_mark, dec_mark = decimal_mark, decimals = 0)
   } else {
@@ -211,15 +230,26 @@ print_markdown_helper <- function(df) {
   
   # Format percents
   x<- fmt_number(x, columns = c(3, 5), scale_by = 100, dec_mark = decimal_mark, decimals = decimal_digits)
-
+  
   # Add total row
-  x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
-    fns = list (Total = ~ sum(.)),
-    fmt = list(
-        ~ fmt_number(., columns = c("Freq"), decimals=0),
-        ~ fmt_percent(., columns = c("%"), decimals=0)
+  # Format freq column as integers if all integers
+  if (allInteger == TRUE) {
+    x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
+                            fns = list (Total = ~ sum(.)),
+                            fmt = list(
+                              ~ fmt_number(., columns = c("Freq"), decimals=0),
+                              ~ fmt_percent(., columns = c("%"), decimals=0)
+                            )
     )
-  )
+  } else {
+    x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
+                            fns = list (Total = ~ sum(.)),
+                            fmt = list(
+                              ~ fmt_number(., columns = c("Freq"), decimals=decimal_digits),
+                              ~ fmt_percent(., columns = c("%"), decimals=0)
+                            )
+    )
+  }
   
   # Format table using options
   x <- tab_options(x, table.width = pct(50),
@@ -240,30 +270,30 @@ print_markdown_helper <- function(df) {
                    data_row.padding.horizontal = "10pt",
                    grand_summary_row.padding.horizontal = "10pt",
                    column_labels.padding.horizontal = "10pt"
-                   )
-
+  )
+  
   # Further table formatting using styles
   x <- tab_style(x,
-    style = cell_text(align = "right"),
-    locations = cells_stubhead()
+                 style = cell_text(align = "right"),
+                 locations = cells_stubhead()
   )
   
   x <-  tab_style(x,
-    style = cell_text(align = "right"),
-    locations = cells_stub_grand_summary()
+                  style = cell_text(align = "right"),
+                  locations = cells_stub_grand_summary()
   )
   
   x <- tab_style(x,
-      style = cell_borders(weight = px(0)),
-      locations = cells_body()
-    )
-  
-  x <- tab_style(x,
-      style = cell_borders(weight = px(0)),
-      locations = cells_stub()
+                 style = cell_borders(weight = px(0)),
+                 locations = cells_body()
   )
   
-    return(x)
+  x <- tab_style(x,
+                 style = cell_borders(weight = px(0)),
+                 locations = cells_stub()
+  )
+  
+  return(x)
 }
 
 
@@ -296,5 +326,5 @@ print.simplefreqs_freq <- function(x, ...) {
     #return(gt:::knit_print.gt_tbl(y)) # ::: is not allowed on CRAN
   }
   
-
+  
 }
