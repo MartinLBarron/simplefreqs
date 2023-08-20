@@ -237,7 +237,7 @@ print_markdown_helper <- function(df) {
     x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
                             fns = list (Total = ~ sum(.)),
                             fmt = list(
-                              ~ fmt_number(., columns = c("Freq"), decimals=0),
+                              ~ fmt_number(., columns = c("Freq"), dec_mark=decimal_mark, sep_mark=big_mark, decimals=0),
                               ~ fmt_percent(., columns = c("%"), decimals=0)
                             )
     )
@@ -245,7 +245,7 @@ print_markdown_helper <- function(df) {
     x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
                             fns = list (Total = ~ sum(.)),
                             fmt = list(
-                              ~ fmt_number(., columns = c("Freq"), decimals=decimal_digits),
+                              ~ fmt_number(., columns = c("Freq"), dec_mark=decimal_mark, sep_mark=big_mark, decimals=decimal_digits),
                               ~ fmt_percent(., columns = c("%"), decimals=0)
                             )
     )
