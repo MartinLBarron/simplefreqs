@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">simplefreqs</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,11 +71,11 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>df</dt>
-<dd><p>A data frame (optionally, you can pass a variable as the first argument.)</p></dd>
+<dd><p>A data.frame (optionally, you can pass a variable as the first argument.)</p></dd>
 
 
 <dt>var</dt>
-<dd><p>a variable in associated data frame</p></dd>
+<dd><p>a variable in the associated data.frame</p></dd>
 
 
 <dt>plot</dt>
@@ -102,13 +102,13 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>data frame containing frequencies.</p>
+<p>data.frame containing frequencies.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This function constructs a frequency table for the specified variable. It expects
-a data frame as the first argument and an (unquoted) variable as the second argument.
-It will thus fit into a tidyverse pipeline.  Alternatively, for convienience, a
+a data.frame as the first argument and an (unquoted) variable as the second argument.
+It will thus fit into a tidyverse pipeline.  Alternatively, for convenience, a
 vector can be passed as first argument and the var (second) argument left blank.</p>
 <p>The console printed table is highly customizable using session, project, or global
 options.  The following options are currently implemented and can be set by calling
