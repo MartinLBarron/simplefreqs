@@ -27,25 +27,25 @@ It should produce attractive console, html, pdf, and word output.
 ### Console
 
 ```{r console}
-freq(iris, Species, markdown = F, plot = F)
+freq(iris, Species, markdown = FALSE, plot = FALSE)
 ```
 
 ### HTML
 
 ```{r html}
-freq(iris, Species, markdown = T)
+freq(iris, Species, markdown = TRUE, plot = FALSE)
 ```
 
 ### PDF
 
 ```{r pdf}
-freq(iris, Species, markdown = T)
+freq(iris, Species, markdown = TRUE, plot = FALSE)
 ```
 
 ### Word
 
 ```{r word}
-freq(iris, Species, markdown = T)
+freq(iris, Species, markdown = TRUE, plot = FALSE)
 ```
 
 ## Tidyverse
@@ -61,14 +61,14 @@ parameter an unquoted variable from the specified data.frame
 
 ```{r basic}
 data(storms)
-freq(storms, status)
+freq(storms, status, plot = FALSE)
 ```
 
 or 
 
 ```{r basic2}
 storms |>
-  freq(status)
+  freq(status, plot = FALSE)
 ```
 
 ## Other Accepted Inputs
@@ -77,13 +77,13 @@ Alternatively, `freq` will detect if you pass a vector as the first parameter an
 produce a frequency table from it.
 
 ```{r vector}
-freq(storms$category)
+freq(storms$category, plot = FALSE)
 ```
 
 or
 
 ```{r vector2}
-freq(storms[["category"]])
+freq(storms[["category"]], plot = FALSE)
 ```
 
 ## Assigning Results
@@ -149,7 +149,7 @@ NAs are, by default, included and treated as any other level of the variable.
 
 ```{r nas1}
 df <- storms |>
-    freq(category, na.rm = FALSE)
+    freq(category, na.rm = FALSE, plot = FALSE)
 df
 ```
 
@@ -160,7 +160,7 @@ of NAs removed and na_removed will be set to TRUE.
 ```{r nas2}
 
 df <- storms |>
-    freq(category, na.rm = TRUE)
+    freq(category, na.rm = TRUE, plot = FALSE)
 df
 attr(df, "na", exact = TRUE)
 attr(df, "na_removed", exact = TRUE)
@@ -174,20 +174,20 @@ type of output you want to display using the `markdown` parameter.  Set to `FALS
 when you wish to print for the console.
 
 ```{r mkdown1}
-freq(iris, Species, markdown = FALSE)
+freq(iris, Species, markdown = FALSE, plot = FALSE)
 ```
 
 Set to `markdown = TRUE` when you wish to include in a knitted document.
 
 ```{r mkdown2}
-freq(iris, Species, markdown = TRUE)
+freq(iris, Species, markdown = TRUE, plot = FALSE)
 ```
 
 # Weighting
 Results can be optionally weighted by providing a vector of weight values.
 
 ```{r wt1}
-freq(iris, Species, wt = Sepal.Length)
+freq(iris, Species, wt = Sepal.Length, plot = FALSE)
 
 ```
 
