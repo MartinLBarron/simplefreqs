@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   basic-use: basic-use.html
-last_built: 2023-08-20T21:36Z
+last_built: 2023-08-20T21:39Z
 urls:
   reference: https://martinlbarron.github.io/simplefreqs/reference
   article: https://martinlbarron.github.io/simplefreqs/articles
