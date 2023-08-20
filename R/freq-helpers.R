@@ -48,7 +48,7 @@ print_console_helper <- function(df,
                                  table_symbol = getOption("simplefreqs.table_symbol", default = "\u2550"),
                                  print_table_symbol = getOption("simplefreqs.print_table_symbol", default = TRUE),
                                  print_total_row = getOption("simplefreqs.print_table_total_row", default = TRUE),
-                                 print_metadata = getOption("simplefreqs.print_table_metadata", default = TRUE),
+                                 print_metadata = getOption("simplefreqs.print_table_metadata", default = FALSE),
                                  print_header_divider = getOption("simplefreqs.print_header_divider", default = TRUE)) {
   # Set Constants
   space_symbol <- " "
@@ -315,6 +315,36 @@ print_markdown_helper <- function(df) {
                  style = cell_borders(weight = px(0)),
                  locations = cells_stub()
   )
+  
+  # Print Metadata ---------------------------------------------------------
+
+  print_metadata = getOption("simplefreqs.print_table_metadata", default = FALSE)
+  missing <- attr(df, "na", exact = T)
+  missingRemoved <- attr(df, "na_removed", exact = T)
+  
+  if (!is.null(missingRemoved)) {
+    norig <- sum(df$Freq) + missing
+  } else {
+    norig <- sum(df$Freq)
+  }
+  naPercent <- (missing / norig) * 100
+  
+  if (print_metadata == TRUE) {
+    meta <- paste0("Variable: ", attr(df, "title"), "<br>",
+                   "Class: ", attr(df, "varClass", exact = T), "<br>")
+    
+    if (!is.null(missingRemoved)) {
+      meta <- paste0(meta, "NAs (removed): ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)")
+    } else {
+      meta <- paste0(meta, "NAs: ", prettyNum(missing, big.mark = big_mark), " (", formatC(naPercent, digits = decimal_digits, format = "f"), "%)")
+    }
+    x <- tab_source_note(x, md(meta))
+    
+    x <- tab_style(x,
+                   style = cell_text(align = "right"),
+                   locations = cells_source_notes()
+    )
+  }
   
   return(x)
 }
