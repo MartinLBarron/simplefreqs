@@ -2,37 +2,69 @@
 % Please edit documentation in R/freq.R
 \name{freq}
 \alias{freq}
-\title{Caclulate frequencies of variable}
+\title{Construct frequency table}
 \usage{
-freq(df, var = NA, plot = T, sort = T, na.rm = F)
+freq(
+  df,
+  var = NA,
+  plot = interactive(),
+  sort = TRUE,
+  markdown = !interactive(),
+  wt = NULL,
+  na.rm = FALSE
+)
 }
 \arguments{
-\item{df}{A dataframe (You can also pass this program a single variable and it will silently transform it to a dataframe)}
+\item{df}{A data.frame (optionally, you can pass a variable as the first argument.)}
 
-\item{var}{a variable in associated dataframe}
+\item{var}{a variable in the associated data.frame}
 
-\item{plot}{if TRUE (default) prints bar chart of results.  If FALSE, no chart.}
+\item{plot}{if TRUE prints bar chart of results.  Default is TRUE if interactive(), otherwise FALSE}
 
 \item{sort}{If TRUE (default), sort output in descending order of n. If FALSE, sort output in ascending order of levels}
 
-\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported seperately)}
+\item{markdown}{if false, formats table for Rmarkdown/Quarto inclusion.}
+
+\item{wt}{a variable representing weights}
+
+\item{na.rm}{if FALSE (default) NAs are included in frequency list.  If TRUE, NA are removed (but reported separately)}
 }
 \value{
-dataframe containing frequencies.
+data.frame containing frequencies.
 }
 \description{
-\code{freq} prints a frequency table for each variable passed to it.
+Prints a frequency table for the specified variable.
 }
 \details{
-freq
+This function constructs a frequency table for the specified variable. It expects
+a data.frame as the first argument and an (unquoted) variable as the second argument.
+It will thus fit into a tidyverse pipeline.  Alternatively, for convenience, a
+vector can be passed as first argument and the var (second) argument left blank.
 
+The console printed table is highly customizable using session, project, or global
+options.  The following options are currently implemented and can be set by calling
+`options()` either interactively or by including in your .Rprofile.
 
-This function prints a frequency table for the variable passed to it.  In
-order to fit within the tidyverse, it takes as its first argument a dataframe
-and returns the frequency table as a dataframe.
+- simplefreqs.inner_table_padding
+
+- simplefreqs.table_symbol
+
+- simplefreqs.row_divider_symbol
+
+- simplefreqs.print_table_symbol
+
+- simplefreqs.print_table_total_row
+
+- simplefreqs.print_table_metadata
+
+- simplefreqs.print_header_divider
+
+- simplefreqs.big_mark
+
+- simplefreqs.decimal_digits
 }
 \examples{
-\dontrun{
-freq(iris, Species)
-}
+
+freq(iris, Species, markdown = FALSE)
+
 }

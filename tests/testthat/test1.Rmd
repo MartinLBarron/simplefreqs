@@ -1,0 +1,28 @@
+---
+title: "Untitled2"
+author: "Martin barron"
+date: "2023-08-18"
+output: html_document
+
+---
+  
+## straight
+
+```{r, results="asis"}
+library(simplefreqs)
+
+freq(iris, Species)
+
+```
+
+
+## NAs
+
+```{r, results="asis"}
+library(simplefreqs)
+library(dplyr)
+data(storms)
+freq(storms, category)
+freq(storms, category, na.rm=T)
+
+```

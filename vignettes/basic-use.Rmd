@@ -1,0 +1,223 @@
+---
+title: "Basic Use"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic Use}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ""
+)
+```
+
+```{r setup}
+library(simplefreqs)
+```
+
+## Printing
+
+This package provides a easy to produce frequency tables.  It is built to
+print nicely both in the console and in knitted documents (i.e. in Rmarkdown or Quarto).
+It should produce attractive console, html, pdf, and (to a lesser extent) word output.
+We show basic console and HTML output below.
+
+### Console
+
+```{r console}
+freq(iris, Species, markdown = FALSE)
+```
+
+If you have difficulty getting markdown to output correctly in your knitted document,
+try setting `results='asis'` in your Rmarkdown chunk options (or `output='asis'` 
+in your Quarto chunk options).
+
+### HTML
+
+```{r html, results='asis'}
+freq(iris, Species, markdown = TRUE)
+```
+
+## Tidyverse
+
+It is designed to be fit into a piped/Tidyverse workflow. 
+
+```{r tidyverse, message=F, error=F, warning=F}
+library(dplyr)
+```
+
+Thus, the first parameter should be a data.frame (or tibble) and the second 
+parameter an unquoted variable from the specified data.frame
+
+```{r basic}
+data(storms)
+freq(storms, status)
+```
+
+or 
+
+```{r basic2}
+storms |>
+  freq(status)
+```
+
+## Other Accepted Inputs
+
+Alternatively, `freq` will detect if you pass a vector as the first parameter and
+produce a frequency table from it.
+
+```{r vector}
+freq(storms$category)
+```
+
+or
+
+```{r vector2}
+freq(storms[["category"]])
+```
+
+## Assigning Results
+
+Results need not be printed. Results, instead, can be assigned to a 
+variable.  The results will be a data.fram with a class of both "simplefreqs_freq" 
+and "data.frame".
+
+```{r assigning}
+df <- freq(mtcars, cyl)
+class(df)
+```
+
+This object will continue to print as a `simplefreqs_freqs` object.
+
+```{r assigning2}
+df <- freq(mtcars, carb)
+df
+```
+
+If needed, you can remove the "simplefreqs_freq" class and the object will print 
+as a regular data.frame.
+
+```{r assigning3}
+df <- freq(mtcars, carb)
+df <- as.data.frame(df)
+class(df)
+df
+```
+
+## Plots
+By default, a simple bar chart is produced alongside the frequency table when working
+interactively.  You can control this with the plots parameter.
+
+```{r plots1}
+freq(iris, Species, plot = TRUE)
+```
+
+Plots can be supressed.
+
+```{r plots2}
+freq(iris, Species, plot = FALSE)
+```
+
+## Sorting
+
+By default, results are sorted in descending order by frequency.
+
+```{r sort1}
+freq(mtcars, cyl, sort = TRUE)
+```
+
+Alternatively, sorting can be supressed. In that case, results will be sorted by 
+the variables labels. For character variables, it will be alphabetic, for factors
+it will in order of the levels.
+
+```{r sort2}
+freq(mtcars, cyl, sort = FALSE)
+```
+
+# NAs
+
+NAs are, by default, included and treated as any other level of the variable.
+
+```{r nas1}
+df <- storms |>
+    freq(category, na.rm = FALSE)
+df
+```
+
+Alternatively, NAs can be removed. In that case, NAs will not be included in the 
+frequency table, but two relevent attribute will be set on the results. "na" will include the number
+of NAs removed and na_removed will be set to TRUE.
+
+```{r nas2}
+
+df <- storms |>
+    freq(category, na.rm = TRUE)
+df
+attr(df, "na", exact = TRUE)
+attr(df, "na_removed", exact = TRUE)
+```
+
+## Markdown
+
+`simplefreqs::freq` tries to intuit if you are printing to the console 
+or are knitting a document. In some cases, you may need to directly specify the 
+type of output you want to display using the `markdown` parameter.  Set to `FALSE`
+when you wish to print for the console.
+
+```{r mkdown1}
+freq(iris, Species, markdown = FALSE)
+```
+
+Set to `markdown = TRUE` when you wish to include in a knitted document.
+
+```{r mkdown2}
+freq(iris, Species, markdown = TRUE)
+```
+
+# Weighting
+Results can be optionally weighted by providing a vector of weight values.
+
+```{r wt1}
+freq(iris, Species, wt = Sepal.Length)
+
+```
+
+## Optional Formatting
+The printed results are highly customizable, both for console output and for HTML
+output (PDF and Word output is less customizable).  There are many available options
+that control how these tables print.  You can set these options per session (using 
+`options(simplefreqs.OPTION = VALUE)`) or by adding the similar lines to your 
+project or global .RProfile file.
+
+The exposed customization options are:
+
+### All output types
+- simplefreqs.big_mark (controls 1000's seperator mark, defaults to ",")
+- OutDec (base option controling decimal mark, defaults to ".")
+- simplefreqs.decimal_digits (controls number of decimal digits printed, defaults to 1)
+- simplefreqs.print_table_metadata (controls whether metadata is printed, defaults to FALSE)
+- simplefreqs.print_table_total_row (controls whether total row is printed, defaults to TRUE)
+- simplefreqs.print_header_divider (controls whether a divider border is printed, defaults to TRUE)
+- simplefreqs.print_table_symbol (controls whether a table divider is printed at top and bottom, default is true)
+
+### Console output
+- simplefreqs.inner_table_padding
+- simplefreqs.table_symbol
+- simplefreqs.row_divider_symbol
+
+
+### markdown (html) output
+- simplefreqs.table.width (controls % width of html table, default is 50)
+- simplefreqs.inner_table_padding (controls padding between cells, default is 10)
+
+
+
+
+
+
+
+
+

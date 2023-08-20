@@ -1,12 +1,28 @@
-Package: freqR
+Package: simplefreqs
 Type: Package
-Title: Basic Data Exploration in a Tidyverse framework 
-Version: 0.2.1
-Author: Martin Barron
-Maintainer: Martin Barron <martin@barron.cc>
-Description: This package provides basic data exploration functions that work with Tidyverse packages and Magister pipes.  This means, among other things, that the first argument of each function is a dataframe and that variabls are passed using lazy evaluation.
-License: MIT
+Title: Simple Frequency Tables 
+Version: 0.6.0
+Authors@R: person("Martin", "Barron", email = "martin@barron.cc",
+  role = c("aut", "cre", "cph"))
+Description: Produces easy to read frequency tables. Function works both on the console 
+    and in Rmarkdown and Quarto documents. It provides sensible default values and
+    ability to easily produce accompanying graph, sort results, and weight frequencies.
+License: MIT + file LICENSE
 Encoding: UTF-8
-Imports: dplyr (>= 0.5.0.9002), ggplot2
+Depends:
+    R (>= 4.3)
+Imports: 
+    dplyr (>= 1.1), 
+    ggplot2 (>= 3.4), 
+    rlang (>= 1.1), 
+    gt(>= 0.9)
 LazyData: true
-RoxygenNote: 7.0.0
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr (>= 1.43),
+    rmarkdown (>= 2.23),
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://martinlbarron.github.io/simplefreqs/, https://github.com/MartinLBarron/simplefreqs
+BugReports: https://github.com/MartinLBarron/simplefreqs/issues
