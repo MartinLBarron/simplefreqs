@@ -263,15 +263,6 @@ print_markdown_helper <- function(df) {
   x <- tab_options(x, table.width = pct(table.width),
                    stub.border.style=NULL, 
                    stub.border.width=0,
-                   table.border.top.style = "double",
-                   table.border.top.width = "4pt",
-                   table.border.top.color = "darkgray",
-                   table.border.bottom.style = "double",
-                   table.border.bottom.width = "4pt",
-                   table.border.bottom.color = "darkgray",
-                   column_labels.border.bottom.style = "solid",
-                   column_labels.border.bottom.width = "2pt",
-                   column_labels.border.bottom.color = "darkgray",
                    grand_summary_row.border.style = "solid",
                    grand_summary_row.border.width = "2pt",
                    grand_summary_row.border.color = "darkgray",
@@ -279,6 +270,35 @@ print_markdown_helper <- function(df) {
                    grand_summary_row.padding.horizontal = paste0(table.padding, "pt"),
                    column_labels.padding.horizontal = paste0(table.padding, "pt")
   )
+  
+  table_border <- getOption("simplefreqs.print_table_symbol", default = TRUE)
+  if (table_border == TRUE){
+  x <- tab_options(x,
+                   table.border.top.style = "double",
+                   table.border.top.width = "4pt",
+                   table.border.top.color = "darkgray",
+                   table.border.bottom.style = "double",
+                   table.border.bottom.width = "4pt",
+                   table.border.bottom.color = "darkgray")
+  }else{
+    x <- tab_options(x,
+                     table.border.top.style = "hidden",
+                     table.border.top.width = "0pt",
+                     table.border.bottom.style = "hidden",
+                     table.border.bottom.width = "0pt")
+  }
+  
+  header_divider <- getOption("simplefreqs.print_header_divider", default=TRUE)
+  if (header_divider==TRUE){
+    x <- tab_options(x, 
+                     column_labels.border.bottom.style = "solid",
+                     column_labels.border.bottom.width = "2pt",
+                     column_labels.border.bottom.color = "darkgray")
+  } else{
+    x <- tab_options(x, 
+                     column_labels.border.bottom.style = "hidden",
+                     column_labels.border.bottom.width = "0pt")
+  }
   
   # Further table formatting using styles
   x <- tab_style(x,
