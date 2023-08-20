@@ -96,12 +96,12 @@ print_console_helper <- function(df,
   
   # Format Footer
   if (allInteger == TRUE){
-  footer <- c(
-    "Total",
-    formatC(n, format = "f", digits = 0, big.mark = big_mark),
-    "100%",
-    "",
-    "")
+    footer <- c(
+      "Total",
+      formatC(n, format = "f", digits = 0, big.mark = big_mark),
+      "100%",
+      "",
+      "")
   } else {
     footer <- c(
       "Total",
@@ -111,7 +111,7 @@ print_console_helper <- function(df,
       ""
     )
   }
-
+  
   maxColWidth <- DetermineColumnWidths(df, footer)
   # add margins to columns
   maxColWidth <- maxColWidth + inner_table_padding
@@ -232,22 +232,29 @@ print_markdown_helper <- function(df) {
   x<- fmt_number(x, columns = c(3, 5), scale_by = 100, dec_mark = decimal_mark, decimals = decimal_digits)
   
   # Add total row
-  # Format freq column as integers if all integers
-  if (allInteger == TRUE) {
-    x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
-                            fns = list (Total = ~ sum(.)),
-                            fmt = list(
-                              ~ fmt_number(., columns = c("Freq"), dec_mark=decimal_mark, sep_mark=big_mark, decimals=0),
-                              ~ fmt_percent(., columns = c("%"), decimals=0)
-                            )
-    )
-  } else {
-    x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
-                            fns = list (Total = ~ sum(.)),
-                            fmt = list(
-                              ~ fmt_number(., columns = c("Freq"), dec_mark=decimal_mark, sep_mark=big_mark, decimals=decimal_digits),
-                              ~ fmt_percent(., columns = c("%"), decimals=0)
-                            )
+  print_total_row <- getOption("simplefreqs.print_table_total_row", default = TRUE)
+  if (print_total_row==TRUE){
+    # Format freq column as integers if all integers
+    if (allInteger == TRUE) {
+      x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
+                              fns = list (Total = ~ sum(.)),
+                              fmt = list(
+                                ~ fmt_number(., columns = c("Freq"), dec_mark=decimal_mark, sep_mark=big_mark, decimals=0),
+                                ~ fmt_percent(., columns = c("%"), decimals=0)
+                              )
+      )
+    } else {
+      x <- grand_summary_rows(x,columns = c(2,3), missing_text = "",
+                              fns = list (Total = ~ sum(.)),
+                              fmt = list(
+                                ~ fmt_number(., columns = c("Freq"), dec_mark=decimal_mark, sep_mark=big_mark, decimals=decimal_digits),
+                                ~ fmt_percent(., columns = c("%"), decimals=0)
+                              )
+      )
+    }
+    x <-  tab_style(x,
+                    style = cell_text(align = "right"),
+                    locations = cells_stub_grand_summary()
     )
   }
   
@@ -276,11 +283,6 @@ print_markdown_helper <- function(df) {
   x <- tab_style(x,
                  style = cell_text(align = "right"),
                  locations = cells_stubhead()
-  )
-  
-  x <-  tab_style(x,
-                  style = cell_text(align = "right"),
-                  locations = cells_stub_grand_summary()
   )
   
   x <- tab_style(x,
