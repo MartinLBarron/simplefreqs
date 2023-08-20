@@ -100,7 +100,7 @@ class(df)
 This object will continue to print as a `simplefreqs_freqs`.
 
 ```{r assigning2}
-df <- freq(mtcars, cyl)
+df <- freq(mtcars, carb)
 df
 ```
 
@@ -108,7 +108,7 @@ If needed, you can remove the "simplefreqs_freq" class and the object will print
 as a regular data.frame.
 
 ```{r assigning3}
-df <- freq(mtcars, cyl)
+df <- freq(mtcars, carb)
 df <- as.data.frame(df)
 class(df)
 df
@@ -132,7 +132,7 @@ freq(iris, Species, plot = FALSE)
 By default, results are sorted in descending order by frequency.
 
 ```{r sort1}
-freq(iris, Species, sort = TRUE, plot = FALSE)
+freq(mtcars, cyl, sort = TRUE, plot = FALSE)
 ```
 
 Alternatively, sorting can be supressed. In that case, results will be sorted by 
@@ -140,7 +140,7 @@ the variables labels. For character variables, it will be alphabetic, for factor
 it will in order of the levels.
 
 ```{r sort2}
-freq(iris, Species, sort = FALSE, plot = FALSE)
+freq(mtcars, cyl, sort = FALSE, plot = FALSE)
 ```
 
 # NAs
@@ -148,9 +148,8 @@ freq(iris, Species, sort = FALSE, plot = FALSE)
 NAs are, by default, included and treated as any other level of the variable.
 
 ```{r nas1}
-df <- iris |>
-  mutate(Species=ifelse(row_number()<10,NA,Species)) |>
-    freq(Species, na.rm = FALSE)
+df <- storms |>
+    freq(category, na.rm = FALSE)
 df
 ```
 
@@ -160,9 +159,8 @@ of NAs removed and na_removed will be set to TRUE.
 
 ```{r nas2}
 
-df <- iris |>
-  mutate(Species=ifelse(row_number()<10,NA,Species)) |>
-    freq(Species, na.rm = TRUE)
+df <- storms |>
+    freq(category, na.rm = TRUE)
 df
 attr(df, "na", exact = TRUE)
 attr(df, "na_removed", exact = TRUE)
@@ -211,6 +209,7 @@ The exposed customization options are:
 - simplefreqs.print_header_divider
 - simplefreqs.big_mark
 - simplefreqs.decimal_digits
+- OutDec (base option controling decimal mark)
 
 
 
