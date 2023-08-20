@@ -257,9 +257,9 @@ print_markdown_helper <- function(df) {
                     locations = cells_stub_grand_summary()
     )
   }
-  
+  table.width = getOption("simplefreqs.table.width", default=50)
   # Format table using options
-  x <- tab_options(x, table.width = pct(50),
+  x <- tab_options(x, table.width = pct(table.width),
                    stub.border.style=NULL, 
                    stub.border.width=0,
                    table.border.top.style = "double",
